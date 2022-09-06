@@ -9,7 +9,6 @@ class Evaluation(models.Model):
     has_photo = models.BooleanField()
     has_email = models.BooleanField()
     has_linkedin = models.BooleanField()
-    has_readme = models.BooleanField()
     stacks = models.IntegerField()
     repositories = models.IntegerField()
     pinned_repositories = models.IntegerField()

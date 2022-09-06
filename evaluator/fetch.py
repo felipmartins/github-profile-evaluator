@@ -12,6 +12,8 @@ def single_fetch_content(github_user):
 
     user_dic = dict()
 
+    user_dic['github_username'] = github_user
+
     user_dic["github"] = Selector(
             text=git_response.text
         )
