@@ -1,11 +1,11 @@
-from profile_handler import (
+from evaluator.profile_handler import (
     get_pinned_repos,
     get_repos,
     has_email,
     has_linkedin,
     get_sidebar,
 )
-from readme_handler import get_readme, get_tags
+from evaluator.readme_handler import get_readme, get_tags
 
 
 def populate_dict(user_dict):

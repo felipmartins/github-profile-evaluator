@@ -1,7 +1,7 @@
 import grequests
 from time import sleep
 from parsel import Selector
-from face_detection import FaceDetector
+from .face_detection import FaceDetector
 
 def single_fetch_content(github_user):
     git_url = [
