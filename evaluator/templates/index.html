@@ -2,13 +2,29 @@
 
 {% block title %}
 
-    Título da página
+    GitHub Evaluator
 
 {% endblock %}
 
 
 {% block content %}
 
-    <h1> Here we go! </h1>
+    <div class="container">
+        <h1> Here we go! </h1>
+        <div class="container">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="github_user">GitHub Username:</label>
+                    <input type="text" class="form-control" id="github_user" name="github_user" placeholder="Escreva aqui o seu username do GitHub." required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary ">Avaliar!</button>
+                
+            </form>   
+        </div>   
+
+    </div>
+    
 
 {% endblock %}
