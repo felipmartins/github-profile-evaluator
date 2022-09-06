@@ -1,12 +1,12 @@
 
 def single_evaluation(user_dict):
     grade = 0
-    user_dict["has_five_tags"] = False
-    user_dict["has_ten_tags"] = False
+    user_dict["has_five_tags"]  = False
+    user_dict["has_ten_tags"]   = False
     user_dict["has_five_repos"] = False
-    user_dict["has_ten_repos"] = False
-    user_dict["has_two_pinned"] = False
-    user_dict["has_four_pinned"] = False
+    user_dict["has_ten_repos"]   = False
+    user_dict["has_two_pinned"]     = False
+    user_dict["has_four_pinned"]    = False
 
 
     if user_dict["photo"]:

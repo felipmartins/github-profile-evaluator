@@ -6,7 +6,7 @@ from evaluator.create_evaluation import new_evaluation
 from evaluator.tracker import raise_evaluation_clicks
 
 def index(request):
-    context = { 
+    context = { 'table': False
 
     }
 
@@ -19,7 +19,8 @@ def index(request):
 
         context = {
 
-            'git_user': eval
+            'git_user': eval,
+            'table': True
             
         }
     
