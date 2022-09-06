@@ -15,7 +15,14 @@ class Evaluation(models.Model):
     stacks = models.IntegerField()
     repositories = models.IntegerField()
     pinned_repositories = models.IntegerField()
+    has_five_or_more_stacks = models.BooleanField()
+    has_ten_or_more_stacks = models.BooleanField()
+    has_five_or_more_repos = models.BooleanField()
+    has_ten_or_more_repos = models.BooleanField()
+    has_two_or_more_pinned = models.BooleanField()
+    has_four_or_more_pinned = models.BooleanField()
     grade = models.IntegerField()
+
 
     def __str__(self):
         return f'{self.github_user}: {self.grade}/100'

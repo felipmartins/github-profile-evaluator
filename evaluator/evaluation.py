@@ -1,6 +1,13 @@
 
 def single_evaluation(user_dict):
     grade = 0
+    user_dict["has_five_tags"] = False
+    user_dict["has_ten_tags"] = False
+    user_dict["has_five_repos"] = False
+    user_dict["has_ten_repos"] = False
+    user_dict["has_two_pinned"] = False
+    user_dict["has_four_pinned"] = False
+
 
     if user_dict["photo"]:
         grade += 10
@@ -15,18 +22,27 @@ def single_evaluation(user_dict):
         grade += 10
         if user_dict["tags"] >= 5:
             grade += 10
+            user_dict["has_five_tags"] = True
+
             if user_dict["tags"] >= 10:
                 grade += 10
+                user_dict["has_ten_tags"] = True
 
     if user_dict["repos"] >= 5:
         grade += 10
+        user_dict["has_five_repos"] = True
+
         if user_dict["repos"] >= 10:
             grade += 10
+            user_dict["has_ten_repos"] = True
 
     if user_dict["pinned"] >= 2:
         grade += 10
+        user_dict["has_two_pinned"] = True
+
         if user_dict["pinned"] >= 4:
             grade += 10
+            user_dict["has_four_pinned"] = True
 
     user_dict["grade"] = grade
 
