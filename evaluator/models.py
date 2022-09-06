@@ -4,6 +4,9 @@ class Tracker(models.Model):
     name = models.CharField(max_length=25)
     clicks = models.IntegerField(default=0)
 
+    def __str__(self):
+        return f"{self.name} - clicks: {self.clicks}"
+
 class Evaluation(models.Model):
     github_user = models.CharField(max_length=50)
     has_photo = models.BooleanField()
