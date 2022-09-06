@@ -1,56 +1,44 @@
-import grequests
+import requests
 from time import sleep
 from parsel import Selector
 from .face_detection import FaceDetector
 
 def single_fetch_content(github_user):
-    git_url = [
-        "https://github.com/" + github_user
-    ]
-    readme_url = [
-        "https://github.com/"
-        + github_user
-        + "/"
-        + github_user
-    ]
+    git_url = "https://github.com/" + github_user
+    readme_url = "https://github.com/" + github_user + "/" + github_user
 
-    git_gen = (grequests.get(git) for git in git_url)
-    readme_gen = (grequests.get(readme) for readme in readme_url)
-
-    git_responses = grequests.map(git_gen)
-    readme_responses = grequests.map(readme_gen)
+    git_response = requests.get(git_url)
+    readme_response = requests.get(readme_url)
 
     sleep(1)
 
     user_dic = dict()
 
     user_dic["github"] = Selector(
-            text=git_responses[0].text
+            text=git_response.text
         )
 
     user_dic["github_readme"] = Selector(
-            text=readme_responses[0].text
+            text=readme_response.text
         )
 
     sleep(1)
 
-    photos_url = [
-        user_dic["github"].css('a[itemprop="image"]::attr(href)').get()
-    ]
+    photo_url = user_dic["github"].css('a[itemprop="image"]::attr(href)').get()
 
 
-    if not bool(photos_url[0]):
-        photos_url[0] = 'https://i.imgur.com/PRiA9r9.png'
+
+    if not bool(photo_url):
+        photo_url = 'https://i.imgur.com/PRiA9r9.png'
     
 
-    photo_gen = (grequests.get(photo) for photo in photos_url)
-    photo_responses = grequests.map(photo_gen)
+    photo_response = requests.get(photo_url)
 
     sleep(1)
 
 
     with open("evaluator/photos/" + github_user + "_image.jpg", "wb") as handler:
-        handler.write(photo_responses[0].content)
+        handler.write(photo_response.content)
         user_dic["photo"] = FaceDetector.find_faces("evaluator/photos/" + github_user + "_image.jpg")
 
     return user_dic
