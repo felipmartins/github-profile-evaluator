@@ -10,8 +10,6 @@ def single_fetch_content(github_user):
     git_response = requests.get(git_url)
     readme_response = requests.get(readme_url)
 
-    sleep(1)
-
     user_dic = dict()
 
     user_dic["github"] = Selector(
@@ -22,8 +20,6 @@ def single_fetch_content(github_user):
             text=readme_response.text
         )
 
-    sleep(1)
-
     photo_url = user_dic["github"].css('a[itemprop="image"]::attr(href)').get()
 
 
@@ -33,9 +29,6 @@ def single_fetch_content(github_user):
     
 
     photo_response = requests.get(photo_url)
-
-    sleep(1)
-
 
     with open("evaluator/photos/" + github_user + "_image.jpg", "wb") as handler:
         handler.write(photo_response.content)
