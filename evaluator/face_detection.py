@@ -11,6 +11,10 @@ class FaceDetector:
     def find_faces(cls, path):
 
         image = cv2.imread(path)
+
+        if not image:
+            return False
+
         reduced = cv2.resize(
             image,
             None,
