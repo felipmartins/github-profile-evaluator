@@ -21,3 +21,5 @@ def new_evaluation(user_dic):
 
     new_eval.save()
 
+    return new_eval
+
