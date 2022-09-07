@@ -7,9 +7,7 @@ from evaluator.models import Evaluation
 from evaluator.tracker import raise_evaluation_clicks
 
 def index(request):
-    context = { 'table': False
-
-    }
+    context = {}
 
     if request.method == 'POST':
         print(request.POST['github_user'])
