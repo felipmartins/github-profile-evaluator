@@ -5,5 +5,5 @@ from .views import index, evaluation, pdf_export
 urlpatterns = [
     path('', index, name='homepage'),
     path('<int:id>', evaluation, name='evaluation'),
-    path('<int:id>/export-pdf', pdf_export, name="export-pdf")
+    path('export-pdf', pdf_export, name="export-pdf")
 ]
