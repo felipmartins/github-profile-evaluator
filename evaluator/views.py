@@ -1,3 +1,4 @@
+import io
 from django.shortcuts import render, redirect, get_object_or_404
 from evaluator.fetch import single_fetch_content
 from evaluator.data_getter import populate_dict
@@ -5,6 +6,7 @@ from evaluator.evaluation import single_evaluation
 from evaluator.create_evaluation import new_evaluation
 from evaluator.models import Evaluation
 from evaluator.tracker import raise_evaluation_clicks
+
 
 def index(request):
     context = {}
@@ -28,3 +30,7 @@ def evaluation(request, id: int):
     context = {'evaluation': current_evaluation}
 
     return render(request, 'evaluation.html', context)
+
+def pdf_export(request, id: int):
+
+    pass
