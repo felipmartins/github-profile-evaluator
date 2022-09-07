@@ -12,7 +12,7 @@ class FaceDetector:
 
         image = cv2.imread(path)
 
-        if not image:
+        if image is None:
             return False
 
         reduced = cv2.resize(
