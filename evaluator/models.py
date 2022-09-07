@@ -22,6 +22,7 @@ class Evaluation(models.Model):
     has_two_or_more_pinned = models.BooleanField()
     has_four_or_more_pinned = models.BooleanField()
     grade = models.IntegerField()
+    github_profile_image = models.ImageField()
 
 
     def __str__(self):

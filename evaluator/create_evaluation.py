@@ -16,7 +16,8 @@ def new_evaluation(user_dic):
         has_ten_or_more_repos = user_dic["has_ten_repos"] ,
         has_two_or_more_pinned = user_dic["has_two_pinned"],
         has_four_or_more_pinned = user_dic["has_four_pinned"],
-        grade = user_dic['grade']
+        grade = user_dic['grade'],
+        github_profile_image = 'photos/' + user_dic['github_username'] + '_image.jpg'
     )
 
     new_eval.save()
