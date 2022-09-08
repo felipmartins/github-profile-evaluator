@@ -9,6 +9,7 @@ class Tracker(models.Model):
 
 class Evaluation(models.Model):
     github_user = models.CharField(max_length=50)
+    evaluation_date = models.DateField(auto_now_add=True)
     has_photo = models.BooleanField()
     has_email = models.BooleanField()
     has_linkedin = models.BooleanField()
