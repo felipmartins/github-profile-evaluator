@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 
 class Tracker(models.Model):
@@ -8,6 +9,7 @@ class Tracker(models.Model):
         return f"{self.name} - clicks: {self.clicks}"
 
 class Evaluation(models.Model):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     github_user = models.CharField(max_length=50)
     evaluation_date = models.DateField(auto_now_add=True)
     has_photo = models.BooleanField()

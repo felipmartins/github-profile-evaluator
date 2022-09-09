@@ -16,13 +16,13 @@ def index(request):
         eval = single_evaluation(populate_dict(single_fetch_content(request.POST['github_user'])))
         new_eval = new_evaluation(eval)
         raise_evaluation_clicks()
-        return redirect('evaluation', id=new_eval.id)
+        return redirect('evaluation', uuid=new_eval.uuid)
     
     return render(request, 'index.html', context)
 
 
-def evaluation(request, id: int):
-    current_evaluation = get_object_or_404(Evaluation, id=id)
+def evaluation(request, uuid: str):
+    current_evaluation = get_object_or_404(Evaluation, uuid=uuid)
     context = {'evaluation': current_evaluation}
     return render(request, 'evaluation.html', context)
 
