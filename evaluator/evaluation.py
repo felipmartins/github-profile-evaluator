@@ -18,7 +18,7 @@ def single_evaluation(user_dict):
     if user_dict["linkedin"]:
         grade += 10
 
-    if user_dict["readme"] != 404:
+    if user_dict["readme"]:
         grade += 10
         if user_dict["tags"] >= 5:
             grade += 10

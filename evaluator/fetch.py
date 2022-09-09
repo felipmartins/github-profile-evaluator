@@ -18,9 +18,13 @@ def single_fetch_content(github_user):
             text=git_response.text
         )
 
-    user_dic["github_readme"] = Selector(
-            text=readme_response.text
-        )
+    if readme_response.status_code == 200:
+        user_dic["github_readme"] = Selector(
+                text=readme_response.text
+            )
+    else:
+        user_dic["github_readme"] = 404
+        
 
     photo_url = user_dic["github"].css('a[itemprop="image"]::attr(href)').get()
 
