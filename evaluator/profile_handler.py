@@ -37,22 +37,29 @@ def get_pinned_repos(selector):
 
 
 def has_email(sidebar, readme):
+    providers = [
+                 "@gmail.com", "@hotmail.com", 
+                 "@outlook.com", "@yahoo.com", 
+                 "@yahoo.com.br", "@terra.com.br",
+                 "@live.com", "@icloud.com"
+                 ]
+
     if sidebar is None and readme is None:
         return False
     elif sidebar is None and readme is not None:
-        return "@" in readme.lower()
+        return any([email in readme.lower() for email in providers])
     elif sidebar is not None and readme is None:
-        return "@" in sidebar.lower()
+        return any([email in sidebar.lower() for email in providers])
 
-    return "@" in readme.lower() or "@" in sidebar.lower()
+    return any([email in readme.lower() for email in providers]) or any([email in sidebar.lower() for email in providers])
 
 
 def has_linkedin(sidebar, readme):
     if sidebar is None and readme is None:
         return False
     elif sidebar is None and readme is not None:
-        return "linkedin" in readme.lower()
+        return "linkedin.com/in" in readme.lower()
     elif sidebar is not None and readme is None:
-        return "linkedin" in sidebar.lower()
+        return "linkedin.com/in" in sidebar.lower()
 
-    return "linkedin" in readme.lower() or "linkedin" in sidebar.lower()
+    return "linkedin.com/in" in readme.lower() or "linkedin.com/in" in sidebar.lower()
