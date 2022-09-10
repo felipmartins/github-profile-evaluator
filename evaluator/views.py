@@ -1,4 +1,5 @@
 import pyautogui
+import csv
 from PIL import Image
 from django.shortcuts import render, redirect, get_object_or_404
 from evaluator.fetch import single_fetch_content
@@ -12,11 +13,15 @@ from evaluator.tracker import raise_evaluation_clicks
 def index(request):
     context = {}
     if request.method == 'POST':
-        print(request.POST['github_user'])
-        eval = single_evaluation(populate_dict(single_fetch_content(request.POST['github_user'])))
-        new_eval = new_evaluation(eval)
-        raise_evaluation_clicks()
-        return redirect('evaluation', uuid=new_eval.uuid)
+        if request.POST['github_user']:
+            print(request.POST['github_user'])
+            eval = single_evaluation(populate_dict(single_fetch_content(request.POST['github_user'])))
+            new_eval = new_evaluation(eval)
+            raise_evaluation_clicks()
+            return redirect('evaluation', uuid=new_eval.uuid)
+        
+        elif request.POST['file']:
+            return redirect('group-evaluation', )
     
     return render(request, 'index.html', context)
 
@@ -26,6 +31,12 @@ def evaluation(request, uuid: str):
     context = {'evaluation': current_evaluation}
     return render(request, 'evaluation.html', context)
 
+
+def group_evaluation(request, csv_file: str):
+    with open(request.POST['file']) as file:
+        return list(csv.DictReader(file))
+
+
 def pdf_export(request):
- 
     ...
+
