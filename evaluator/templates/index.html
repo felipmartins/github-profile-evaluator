@@ -10,27 +10,16 @@
 {% block content %}
 
     <div class="container">
-        <h1> Here we go! </h1>
-
+        <h1> Here we go! (Single Evaluation) </h1>
+        <h2> For group evaluation <a href="{% url 'group-homepage' %}"> Click Here! </a> </h2>
         <div class="container">
-            <form action="{% url 'homepage' %}" method="post">
+            <form action="" method="post">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="github_user">Digite abaixo o seu GitHub Username:</label>
                     <input type="text" class="form-control" id="github_user" name="github_user" placeholder="Escreva aqui o seu username do GitHub." required>
                 </div>
                 
-                <button type="submit" class="btn btn-primary ">Avaliar!</button>
-            </form>   
-        </div>
-
-        <div class="container g-3 py-3">
-            <form action="{% url 'group-evaluation' %}" method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="github_user">Ou então faça o upload de um csv que contenha a coluna github_username:</label>
-                    <input type="file" class="form-control" id="file" name="file" placeholder="Faça o upload do csv aqui." required>
-                </div>
                 <button type="submit" class="btn btn-primary ">Avaliar!</button>
             </form>   
         </div>
