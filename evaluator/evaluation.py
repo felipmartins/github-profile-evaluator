@@ -1,3 +1,6 @@
+from .fetch import group_fetch_content
+from .data_getter import populate_dicts
+
 
 def single_evaluation(user_dict):
     grade = 0
@@ -49,17 +52,12 @@ def single_evaluation(user_dict):
     return user_dict
 
 
-# def group_evaluation(general_list_of_dicts):
-#     general_list_of_dicts = fetch_content(general_list_of_dicts)
+def do_group_evaluation(general_list_of_dicts):
+    general_list_of_dicts = group_fetch_content(general_list_of_dicts)
 
-#     general_list_of_dicts = populate_dicts(general_list_of_dicts)
+    general_list_of_dicts = populate_dicts(general_list_of_dicts)
 
-#     statistics_dict = get_statistics(general_list_of_dicts)
+    for each_dict in general_list_of_dicts:
+        each_dict = single_evaluation(each_dict)
 
-#     for each_dict in general_list_of_dicts:
-#         each_dict = single_evaluation(each_dict)
-#         cohort = each_dict["cohort_name"]
-
-#     write_new_csv(str(cohort), general_list_of_dicts, statistics_dict)
-
-#     return general_list_of_dicts
+    return general_list_of_dicts
