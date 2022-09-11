@@ -23,7 +23,11 @@
                 <button type="submit" class="btn btn-primary ">Avaliar!</button>
             </form>   
         </div>
-        {{erro}}
+        {% if request.session.erro %}
+
+        {{request.session.erro}}
+
+        {% endif %}
         
     </div>
     
