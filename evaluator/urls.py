@@ -6,6 +6,6 @@ urlpatterns = [
     path('', index, name='homepage'),
     path('group', group_index, name='group-homepage'),
     path('evaluation/<str:uuid>', evaluation, name='evaluation'),
-    path('export-pdf', pdf_export, name="export-pdf"),
+    path('evaluation/group/<str:uuid>', group_evaluation, name='group-evaluation'),
     path('group/new', create_csv_to_evaluation, name='create-csv'),
 ]
