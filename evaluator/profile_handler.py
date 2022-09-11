@@ -8,7 +8,7 @@ def get_image_url(selector):
 def get_sidebar(selector):
     if selector == 404:
         return None
-    sidebar = selector.css("div.Layout-sidebar").get()
+    sidebar = selector.css("div.js-profile-editable-area").get()
     return sidebar
 
 
