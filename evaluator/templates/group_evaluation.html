@@ -3,17 +3,18 @@
 
 {% block title %}
 
-{{ evaluation }}
+Group Evaluation
 
 {% endblock %}
 
 
-
 {% block content %}
-{{ group_evaluation }}
+<div class="container text-center">
+    <h1> Avaliação realizada em {{ group_evaluation.0.evaluation_date }} </h1>
+</div>
+{% for evaluation in group_evaluation %}
     <div class="container g-3 py-3">
         <div class="container text-center">
-            <h1> Avaliação realizada em {{ evaluation.evaluation_date }} </h1>
             <img src="{% static evaluation.github_profile_image %}" alt="GitHub Profile Picture" height="200">
             <h2> {{ evaluation }} </h1>
         </div>
@@ -28,7 +29,7 @@
             </thead>
             <tbody class="text-center">
             <tr>
-                <th class="text-left" scope="row">Rosto nítido na foto de perfil?</th>
+                <th class="text-left" scope="row">Rosto encontrado pelo algoritmo na foto de perfil?</th>
                 {% if evaluation.has_photo %}
                 <td>Sim!</td>
                 {% else %}
@@ -42,7 +43,7 @@
                 {% endif %}
             </tr>
             <tr>
-                <th class="text-left" scope="row">E-mail localizado dentro do GitHub?</th>
+                <th class="text-left" scope="row">E-mail localizado dentro do README?</th>
                 {% if evaluation.has_email %}
                 <td>Sim!</td>
                 {% else %}
@@ -132,6 +133,7 @@
             </tbody>
         </table>
     </div>
+{% endfor %}
     <div class="container text-center py-3">
         <a href="" class="btn btn-primary" role="button">Download PDF</a>
         <a href="{% url 'homepage' %}" class="btn btn-secondary" role="button">Voltar</a>

@@ -14,7 +14,7 @@
         <h2> For single evaluation <a href="{% url 'homepage' %}"> Click Here! </a> </h2>
 
         <div class="container g-3 py-3">
-            <form action="{% url 'create-csv' %}" method="post" enctype="multipart/form-data">
+            <form action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="github_user">Faça o upload de um csv que contenha a coluna github_username:</label>
