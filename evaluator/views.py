@@ -3,6 +3,7 @@ import pyautogui
 import csv
 from PIL import Image
 from .forms import CSVForm
+from .utils import csv_to_list
 from django.shortcuts import render, redirect, get_object_or_404
 from evaluator.fetch import single_fetch_content
 from evaluator.data_getter import populate_dict
@@ -35,27 +36,38 @@ def evaluation(request, uuid: str):
 
 
 def group_evaluation(request, uuid: str):
-    with open(request.POST['file']) as file:
-        return list(csv.DictReader(file))
+    csv_object = get_object_or_404(GroupCSV, uuid=uuid)
+    csv_list = csv_to_list(csv_object.file.name)
+    evaluation_list = []
+
+    for person in csv_list:
+        eval = single_evaluation(populate_dict(single_fetch_content(person['github_username'])))
+        new_eval = new_evaluation(eval)
+    raise_evaluation_clicks()
+
+    context = {'group_evaluation': evaluation_list}
+    return render(request, 'group_evaluation.html', context)
 
 
 def create_csv_to_evaluation(request):
-
-    print(dir(request.FILES['file']))
-    
     if request.FILES['file']._name.endswith('csv'):
-    
         csv_object = GroupCSV(
             file=request.FILES['file']
         )
         csv_object.save()
-
-        return redirect('group-homepage')
-    
+        print(dir(csv_object.file))
+        csv_list = csv_to_list(csv_object.file.name)
+        if 'github_username' not in csv_list[0]:
+            csv_object.file.delete()
+            csv_object.delete()
+            request.session['erro'] = 'Chave "github_username" não existe no arquivo!!'
+            return redirect('group-homepage')
+        if 'erro' in request.session:
+            del request.session['erro']
+        return redirect('group-evaluation', uuid=csv_object.uuid)
     else:
-        context = { 'erro': 'Arquivo Inválido!!'}
-
-        return render(request, 'group_index.html', context)
+        request.session['erro'] = 'Arquivo Inválido!!'
+        return redirect('group-homepage')
 
 
 def pdf_export(request):
