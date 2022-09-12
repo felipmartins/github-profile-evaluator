@@ -56,9 +56,7 @@ def do_group_evaluation(general_list_of_dicts):
     general_list_of_dicts = many_fetch_content(general_list_of_dicts)
 
     general_list_of_dicts = populate_dicts(general_list_of_dicts)
-    counter = 1
     for each_dict in general_list_of_dicts:
         each_dict = single_evaluation(each_dict)
-        print(f"#{counter} / {len(general_list_of_dicts)}")
 
     return general_list_of_dicts
