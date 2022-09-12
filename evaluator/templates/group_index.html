@@ -10,8 +10,8 @@
 {% block content %}
 
     <div class="container">
-        <h1> Here we go (group version)! </h1>
-        <h2> For single evaluation <a href="{% url 'homepage' %}"> Click Here! </a> </h2>
+        <h1> Avaliador de GitHub (Múltiplas avaliações via csv)! </h1>
+        <h2> Para avaliação individual <a href="{% url 'homepage' %}"> Clique Aqui! </a> </h2>
 
         <div class="container g-3 py-3">
             <form action="" method="post" enctype="multipart/form-data">
@@ -20,8 +20,11 @@
                     <label for="github_user">Faça o upload de um csv que contenha a coluna github_username:</label>
                     <input type="file" class="form-control" id="file" name="file" required>
                 </div>
-                <button type="submit" class="btn btn-primary ">Avaliar!</button>
-            </form>   
+                <button type="submit" class="btn btn-primary" id="upload-button">Avaliar!</button>
+            </form>
+        </div>
+        <div class="container">
+            <span>*A avaliação demora cerca de 5 segundos para cada github_username presente no csv.</span>
         </div>
         {% if request.session.erro %}
 
