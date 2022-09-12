@@ -13,7 +13,7 @@ def get_tags(selector):
         "mongo", "node", "express", "mocha", "next.js", "typescript",
         "jwt", "python", "csharp", "cpp", "postman", "nginx", "django",
         "bash", "sequelize", "prisma", "bootstrap", "linux", "mac", 
-        "tailwind"
+        "tailwind", "algoritmos", "dados", "redes", "objetos"
     ]
 
     if selector == 404:
@@ -22,9 +22,7 @@ def get_tags(selector):
     stack_counter = 0
 
     for stack in stacks:
-        for img in selector.css("img").getall():
-            if stack in img:
-                stack_counter += 1
-                break
+        if stack in selector.get().lower():
+            stack_counter += 1
     
     return stack_counter
