@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import index, evaluation, pdf_export, group_evaluation, group_index
+from .views import index, evaluation, group_evaluation, group_index
 
 urlpatterns = [
     path('', index, name='homepage'),

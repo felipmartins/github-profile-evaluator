@@ -1,12 +1,7 @@
-import uuid
-import pyautogui
-import csv
 from time import sleep
-from PIL import Image
-from .forms import CSVForm
 from .utils import csv_to_list
 from django.shortcuts import render, redirect, get_object_or_404
-from evaluator.fetch import group_fetch_content, single_fetch_content
+from evaluator.fetch import single_fetch_content
 from evaluator.data_getter import populate_dict
 from evaluator.evaluation import single_evaluation, do_group_evaluation
 from evaluator.create_evaluation import new_evaluation, new_group_evaluation
@@ -45,7 +40,7 @@ def group_index(request):
             csv_list = do_group_evaluation(csv_list)
             new_group_evaluation(csv_list, csv_object)
             raise_evaluation_clicks
-            sleep(5)
+            sleep(1)
             return redirect('group-evaluation', uuid=csv_object.uuid)
         else:
             request.session['erro'] = 'Arquivo Inválido!!'
