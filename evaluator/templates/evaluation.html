@@ -133,7 +133,7 @@
         </table>
     </div>
     <div class="container text-center py-3">
-        <a href="" class="btn btn-primary" role="button">Download PDF</a>
+        <a href="{% url 'download-evaluation' single evaluation.uuid %}" class="btn btn-primary" role="button">Download PDF</a>
         <a href="{% url 'homepage' %}" class="btn btn-secondary" role="button">Voltar</a>
       </div>
 {% endblock %}
