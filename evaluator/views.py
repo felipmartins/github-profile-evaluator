@@ -19,7 +19,6 @@ from evaluator.tracker import raise_evaluation_clicks
 def index(request):
     context = {}
     if request.method == "POST":
-        print(request.POST["github_user"])
         eval = single_evaluation(
             populate_dict(single_fetch_content(request.POST["github_user"]))
         )
@@ -76,7 +75,6 @@ def group_evaluation(request, uuid: str):
 def pdf_export(request, type: str, uuid: str):
     if type == "group":
         csv_object = get_object_or_404(GroupCSV, uuid=uuid)
-        print(dir(csv_object.file))
         filename = csv_object.file.path.split("/")[-1]
         evaluations = GroupEvaluation.objects.all().filter(csv_file=csv_object)
     else:
@@ -85,8 +83,6 @@ def pdf_export(request, type: str, uuid: str):
         evaluations = [current_evaluation]
 
     height = 0
-
-    print(evaluations)
 
     buffer = io.BytesIO()
     p = canvas.Canvas(buffer, pagesize=A4)  # *2,83 ~(595, 842)
