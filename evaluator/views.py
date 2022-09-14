@@ -76,9 +76,12 @@ def group_evaluation(request, uuid: str):
 def pdf_export(request, type: str, uuid: str):
     if type == "group":
         csv_object = get_object_or_404(GroupCSV, uuid=uuid)
+        print(dir(csv_object.file))
+        filename = csv_object.file.path.split("/")[-1]
         evaluations = GroupEvaluation.objects.all().filter(csv_file=csv_object)
     else:
         current_evaluation = get_object_or_404(Evaluation, uuid=uuid)
+        filename = current_evaluation.github_user
         evaluations = [current_evaluation]
 
     height = 0
@@ -288,4 +291,4 @@ def pdf_export(request, type: str, uuid: str):
     p.save()
 
     buffer.seek(0)
-    return FileResponse(buffer, as_attachment=True, filename="hello.pdf")
+    return FileResponse(buffer, as_attachment=True, filename=filename + ".pdf")
