@@ -1,12 +1,14 @@
 import uuid
 from django.db import models
 
+
 class Tracker(models.Model):
     name = models.CharField(max_length=25)
     clicks = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.name} - clicks: {self.clicks}"
+
 
 class Evaluation(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -27,14 +29,13 @@ class Evaluation(models.Model):
     grade = models.IntegerField()
     github_profile_image = models.ImageField()
 
-
     def __str__(self):
-        return f'{self.github_user}: {self.grade}/100'
+        return f"{self.github_user}: {self.grade}/100"
 
 
 class GroupCSV(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    file = models.FileField(upload_to='evaluator/static/csvs/')
+    file = models.FileField(upload_to="evaluator/static/csvs/")
 
     def __str__(self):
         return str(self.file)
@@ -60,6 +61,5 @@ class GroupEvaluation(models.Model):
     grade = models.IntegerField()
     github_profile_image = models.ImageField()
 
-
     def __str__(self):
-        return f'{self.github_user}: {self.grade}/100'
+        return f"{self.github_user}: {self.grade}/100"
