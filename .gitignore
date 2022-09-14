@@ -130,3 +130,5 @@ dmypy.json
 
 evaluator/static/photos/*.jpg
 evaluator/static/csvs/
+
+.vscode/
