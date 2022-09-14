@@ -38,11 +38,15 @@ def get_pinned_repos(selector):
 
 def has_email(sidebar, readme):
     providers = [
-                 "@gmail.com", "@hotmail.com", 
-                 "@outlook.com", "@yahoo.com", 
-                 "@yahoo.com.br", "@terra.com.br",
-                 "@live.com", "@icloud.com"
-                 ]
+        "@gmail.com",
+        "@hotmail.com",
+        "@outlook.com",
+        "@yahoo.com",
+        "@yahoo.com.br",
+        "@terra.com.br",
+        "@live.com",
+        "@icloud.com",
+    ]
 
     if sidebar is None and readme is None:
         return False
@@ -51,7 +55,9 @@ def has_email(sidebar, readme):
     elif sidebar is not None and readme is None:
         return any([email in sidebar.lower() for email in providers])
 
-    return any([email in readme.lower() for email in providers]) or any([email in sidebar.lower() for email in providers])
+    return any([email in readme.lower() for email in providers]) or any(
+        [email in sidebar.lower() for email in providers]
+    )
 
 
 def has_linkedin(sidebar, readme):
