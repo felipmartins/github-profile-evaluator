@@ -11,22 +11,22 @@
 
 {% block content %}
 
-    <div class="container g-3 py-3">
-        <div class="container text-center">
-            <h1> Avaliação realizada em {{ evaluation.evaluation_date }} </h1>
-            <img src="{% static evaluation.github_profile_image %}" alt="GitHub Profile Picture" height="200">
-            <h2> {{ evaluation }} </h1>
-        </div>
-        <table class="table g-3 py-3">
-            <thead class="thead-dark text-center">
+<div class="container g-3 py-3">
+    <div class="container text-center">
+        <h1> Avaliação realizada em {{ evaluation.evaluation_date }} </h1>
+        <img src="{% static evaluation.github_profile_image %}" alt="GitHub Profile Picture" height="200">
+        <h2> {{ evaluation }} </h1>
+    </div>
+    <table class="table g-3 py-3">
+        <thead class="thead-dark text-center">
             <tr>
                 <th class="text-left" scope="col">Critérios de Avaliação</th>
                 <th scope="col">Encontrado</th>
                 <th scope="col">Esperado</th>
                 <th scope="col">Avaliação</th>
             </tr>
-            </thead>
-            <tbody class="text-center">
+        </thead>
+        <tbody class="text-center">
             <tr>
                 <th class="text-left" scope="row">Rosto encontrado pelo algoritmo na foto de perfil?</th>
                 {% if evaluation.has_photo %}
@@ -129,11 +129,12 @@
                 <td>+0 &#10060;</td>
                 {% endif %}
             </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="container text-center py-3">
-        <a href="{% url 'download-evaluation' single evaluation.uuid %}" class="btn btn-primary" role="button">Download PDF</a>
-        <a href="{% url 'homepage' %}" class="btn btn-secondary" role="button">Voltar</a>
-      </div>
+        </tbody>
+    </table>
+</div>
+<div class="container text-center py-3">
+    <a href="{% url 'download-evaluation' single evaluation.uuid %}" class="btn btn-primary" role="button">Download
+        PDF</a>
+    <a href="{% url 'homepage' %}" class="btn btn-secondary" role="button">Voltar</a>
+</div>
 {% endblock %}

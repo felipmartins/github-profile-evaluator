@@ -2,37 +2,40 @@
 
 {% block title %}
 
-    GitHub Evaluator
+GitHub Evaluator
 
 {% endblock %}
 
 
 {% block content %}
 
-    <div class="container">
-        <h1> Avaliador de GitHub (Múltiplas avaliações via csv)! </h1>
-        <h2> Para avaliação individual <a href="{% url 'homepage' %}"> Clique Aqui! </a> </h2>
+<div class="container">
+    <h1> Avaliador de GitHub (Múltiplas avaliações via csv*)! </h1>
+    <h2> Para avaliação individual <a href="{% url 'homepage' %}"> Clique Aqui! </a> </h2>
 
-        <div class="container g-3 py-3">
-            <form action="" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="github_user">Faça o upload de um csv que contenha a coluna github_username:</label>
-                    <input type="file" class="form-control" id="file" name="file" required>
-                </div>
-                <button type="submit" class="btn btn-primary" id="upload-button">Avaliar!</button>
-            </form>
-        </div>
-        <div class="container">
-            <span>*A avaliação demora cerca de 5 segundos para cada github_username presente no csv.</span>
-        </div>
-        {% if request.session.erro %}
-
-        {{request.session.erro}}
-
-        {% endif %}
-        
+    <div class="container g-3 py-3">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="github_user">Faça o upload de um csv que contenha a coluna github_username:</label>
+                <input type="file" class="form-control" id="file" name="file" required>
+            </div>
+            <button type="submit" class="btn btn-primary" id="upload-button">Avaliar!</button>
+        </form>
+        <span style="font-size:8pt">*A avaliação demora cerca de 5 segundos para cada github_username presente no
+            csv.</span>
     </div>
-    
+
+
+    {% if request.session.erro %}
+    <div class="container g-3 py-3 text-center text-danger">
+
+        <h5>{{request.session.erro}}</h5>
+
+    </div>
+    {% endif %}
+
+</div>
+
 
 {% endblock %}

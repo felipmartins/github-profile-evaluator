@@ -6,7 +6,8 @@ from reportlab.lib import colors
 from reportlab.lib.utils import ImageReader
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import Table, TableStyle
-from evaluator.models import Evaluation, GroupCSV, GroupEvaluation
+from .models import Evaluation, GroupCSV, GroupEvaluation
+from .tracker import raise_single_download_clicks, raise_group_download_clicks
 
 
 def export_file(type: str, uuid: str):
@@ -14,10 +15,12 @@ def export_file(type: str, uuid: str):
         csv_object = get_object_or_404(GroupCSV, uuid=uuid)
         filename = csv_object.file.path.split("/")[-1]
         evaluations = GroupEvaluation.objects.all().filter(csv_file=csv_object)
+        raise_group_download_clicks()
     else:
         current_evaluation = get_object_or_404(Evaluation, uuid=uuid)
         filename = current_evaluation.github_user
         evaluations = [current_evaluation]
+        raise_single_download_clicks()
 
     height = 0
 

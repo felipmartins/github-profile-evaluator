@@ -1,20 +1,13 @@
-import io
-from django.http import FileResponse
-from reportlab.pdfgen import canvas
 from time import sleep
-from .utils import csv_to_list
+from .utils import csv_to_list, check_usernamekey_in_csv
 from django.shortcuts import render, redirect, get_object_or_404
 from .export_pdf import export_file
-from reportlab.lib import colors
-from reportlab.lib.utils import ImageReader
-from reportlab.lib.pagesizes import A4
-from reportlab.platypus import Table, TableStyle
-from evaluator.fetch import single_fetch_content
-from evaluator.data_getter import populate_dict
-from evaluator.evaluation import single_evaluation, do_group_evaluation
-from evaluator.create_evaluation import new_evaluation, new_group_evaluation
-from evaluator.models import Evaluation, GroupCSV, GroupEvaluation
-from evaluator.tracker import raise_evaluation_clicks
+from .fetch import single_fetch_content
+from .data_getter import populate_dict
+from .evaluation import single_evaluation, do_group_evaluation
+from .create_evaluation import new_evaluation, new_group_evaluation
+from .models import Evaluation, GroupCSV, GroupEvaluation
+from .tracker import raise_evaluation_clicks, raise_group_evaluation_clicks
 
 
 def index(request):
@@ -38,22 +31,20 @@ def group_index(request):
             csv_object = GroupCSV(file=request.FILES["file"])
             csv_object.save()
             csv_list = csv_to_list(csv_object.file.name)
-            if "github_username" not in csv_list[0]:
-                csv_object.file.delete()
-                csv_object.delete()
+            request
+            if not check_usernamekey_in_csv(csv_object, csv_list):
                 request.session[
                     "erro"
-                ] = 'Chave "github_username" não existe no arquivo!!'
+                ] = 'Coluna "github_username" não existe dentro do arquivo csv!!!'
                 return redirect("group-homepage")
             if "erro" in request.session:
                 del request.session["erro"]
             csv_list = do_group_evaluation(csv_list)
             new_group_evaluation(csv_list, csv_object)
-            raise_evaluation_clicks
-            sleep(1)
+            raise_group_evaluation_clicks()
             return redirect("group-evaluation", uuid=csv_object.uuid)
         else:
-            request.session["erro"] = "Arquivo Inválido!!"
+            request.session["erro"] = "Arquivo com extensão inválida!!!"
             return redirect("group-homepage")
 
     return render(request, "group_index.html", context)
