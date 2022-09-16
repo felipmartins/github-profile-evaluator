@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block title %}
 
 {{ evaluation }}
@@ -14,7 +15,7 @@
 <div class="container g-3 py-3">
     <div class="container text-center">
         <h1> Avaliação realizada em {{ evaluation.evaluation_date }} </h1>
-        <img src="{% static evaluation.github_profile_image %}" alt="GitHub Profile Picture" height="200">
+        <img src="/media/{{evaluation.github_profile_image}}ß" alt="GitHub Profile Picture" height="200">
         <h2> {{ evaluation }} </h1>
     </div>
     <table class="table g-3 py-3">
