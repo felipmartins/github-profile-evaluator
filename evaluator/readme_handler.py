@@ -13,8 +13,7 @@ def get_tags(selector):
         "mongo", "node", "express", "mocha", "next.js", "typescript",
         "jwt", "py", "csharp", "cpp", "postman", "nginx", "django",
         "bash", "sequelize", "prisma", "bootstrap", "linux", "mac", 
-        "tailwind", "algoritmos", "dados", "redes", "objetos", "js",
-
+        "tailwind", "algoritmos", "dados", "redes", "objetos", "js"
     ]
 
     if selector == 404:

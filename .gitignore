@@ -128,8 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-evaluator/static/photos/*.jpg
-evaluator/static/csvs/
+evaluator/media/
 
 .vscode/
 
