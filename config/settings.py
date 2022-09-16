@@ -11,16 +11,15 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
-from .env import env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = env['SECRET_KEY']
+SECRET_KEY = 's5&71q^!*28tp8%6f7#2^)pb#ck6ujr_r9!@y5f%p%)ugbfb2z'
 
-DEBUG = env['DEBUG']
+DEBUG = True
 
-ALLOWED_HOSTS = ['34.226.119.174','www.avaliadorgit.com','avaliadorgit.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
