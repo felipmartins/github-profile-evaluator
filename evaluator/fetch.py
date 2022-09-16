@@ -32,10 +32,10 @@ def single_fetch_content(github_user):
     photo_response = requests.get(photo_url)
     sleep(1)
 
-    with open("evaluator/media/" + github_user + "_image.jpg", "wb") as handler:
+    with open("media/" + github_user + "_image.jpg", "wb") as handler:
         handler.write(photo_response.content)
         user_dic["photo"] = FaceDetector.find_faces(
-            "evaluator/media/" + github_user + "_image.jpg"
+            "media/" + github_user + "_image.jpg"
         )
 
     return user_dic

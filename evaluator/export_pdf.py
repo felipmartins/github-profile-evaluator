@@ -37,7 +37,7 @@ def export_file(type: str, uuid: str):
             "Avaliação realizada em " + evaluation.evaluation_date.strftime("%d/%m/%Y"),
         )
         logo = ImageReader(
-            "evaluator/static/photos/" + evaluation.github_user + "_image.jpg"
+            "media/" + evaluation.github_user + "_image.jpg"
         )
         logo.getSize()
         width = logo._width
