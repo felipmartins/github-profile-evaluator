@@ -14,18 +14,18 @@ def single_fetch_content(github_user):
     readme_response = requests.get(readme_url)
     sleep(1)
 
-    user_dic = dict()
+    user_dict = dict()
 
-    user_dic["github_username"] = github_user
+    user_dict["github_username"] = github_user
 
-    user_dic["github"] = Selector(text=git_response.text)
+    user_dict["github"] = Selector(text=git_response.text)
 
     if readme_response.status_code == 200:
-        user_dic["github_readme"] = Selector(text=readme_response.text)
+        user_dict["github_readme"] = Selector(text=readme_response.text)
     else:
-        user_dic["github_readme"] = 404
+        user_dict["github_readme"] = 404
 
-    photo_url = user_dic["github"].css('a[itemprop="image"]::attr(href)').get()
+    photo_url = user_dict["github"].css('a[itemprop="image"]::attr(href)').get()
 
     if not bool(photo_url):
         photo_url = "https://i.imgur.com/PRiA9r9.png"
@@ -36,9 +36,9 @@ def single_fetch_content(github_user):
     gh_image_path = "evaluator/media/" + github_user + "_image.jpg"
     with open(gh_image_path, "wb") as handler:
         handler.write(photo_response.content)
-        user_dic["photo"] = FaceDetector.find_faces(gh_image_path)
+        user_dict["photo"] = FaceDetector.find_faces(gh_image_path)
 
-    return user_dic
+    return user_dict
 
 
 def many_fetch_content(list_of_dicts):
