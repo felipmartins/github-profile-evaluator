@@ -1,11 +1,14 @@
 def get_readme(selector):
-    if selector == 404:
+    if not selector:
         return None
     readme = selector.css("article.markdown-body").get()
     return readme
 
 
 def get_tags(selector):
+
+    if not selector:
+        return 0
 
     stacks = [
         "html", "css", "javascript", "jest", "react", "cypress",
@@ -15,9 +18,6 @@ def get_tags(selector):
         "bash", "sequelize", "prisma", "bootstrap", "linux", "mac",
         "tailwind", "algoritmos", "dados", "redes", "objetos", "js"
     ]
-
-    if selector == 404:
-        return 0
 
     stack_counter = 0
 
