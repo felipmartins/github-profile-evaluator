@@ -1,36 +1,35 @@
 def get_image_url(selector):
-    if selector == 404:
+    try:
+        return selector.css('a[itemprop="image"]::attr(href)').get()
+    except AttributeError:
         return None
-    image_url = selector.css('a[itemprop="image"]::attr(href)').get()
-    return image_url
 
 
 def get_sidebar(selector):
-    if selector == 404:
+    try:
+        return selector.css("div.js-profile-editable-area").get()
+    except AttributeError:
         return None
-    sidebar = selector.css("div.js-profile-editable-area").get()
-    return sidebar
 
 
 def get_repos(selector):
-    if selector == 404:
+    try:
+        repo = selector.css("span.Counter::text").get()
+    except AttributeError:
         return None
-    repo = selector.css("span.Counter::text").get()
-    if repo:
-        return int(repo)
-    else:
-        return 0
+    return int(repo) if repo else 0
 
 
 def get_pinned_repos(selector):
-    if selector == 404:
+    try:
+        check_pinned = selector.css("h2.f4.mb-2.text-normal::text").get()
+    except AttributeError:
         return None
-    check_pinned = selector.css("h2.f4.mb-2.text-normal::text").get()
-    if check_pinned and "Pinned" in check_pinned:
-        repo = selector.css("div.Box.d-flex.pinned-item-list-item").getall()
-    else:
-        repo = []
-    return len(repo)
+
+    if not check_pinned or "Pinned" not in check_pinned:
+        return 0
+
+    return len(selector.css("div.Box.d-flex.pinned-item-list-item").getall())
 
 
 def has_email(sidebar, readme):
