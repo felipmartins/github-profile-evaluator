@@ -5,10 +5,11 @@ from .face_detection import FaceDetector
 
 
 def single_fetch_content(github_user):
-    git_url = "https://github.com/" + github_user
-    readme_url = "https://github.com/" + github_user + "/" + github_user
+    GH_BASE_PATH = "https://github.com/"
+    gh_profile_url = GH_BASE_PATH + github_user
+    readme_url = gh_profile_url + "/" + github_user
 
-    git_response = requests.get(git_url)
+    git_response = requests.get(gh_profile_url)
     sleep(1)
     readme_response = requests.get(readme_url)
     sleep(1)
@@ -32,11 +33,10 @@ def single_fetch_content(github_user):
     photo_response = requests.get(photo_url)
     sleep(1)
 
-    with open("evaluator/media/" + github_user + "_image.jpg", "wb") as handler:
+    gh_image_path = "evaluator/media/" + github_user + "_image.jpg"
+    with open(gh_image_path, "wb") as handler:
         handler.write(photo_response.content)
-        user_dic["photo"] = FaceDetector.find_faces(
-            "evaluator/media/" + github_user + "_image.jpg"
-        )
+        user_dic["photo"] = FaceDetector.find_faces(gh_image_path)
 
     return user_dic
 
@@ -46,6 +46,8 @@ def many_fetch_content(list_of_dicts):
     general_list_of_dicts = []
 
     for each_dict in list_of_dicts:
-        general_list_of_dicts.append(single_fetch_content(each_dict["github_username"]))
+        general_list_of_dicts.append(
+            single_fetch_content(each_dict["github_username"])
+        )
 
     return general_list_of_dicts
