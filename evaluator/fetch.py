@@ -5,18 +5,16 @@ from .face_detection import FaceDetector
 
 
 def single_fetch_content(github_user):
-    GH_BASE_PATH = "https://github.com/"
 
     user_dict = dict()
     user_dict["github_username"] = github_user
 
-    gh_profile_url = GH_BASE_PATH + github_user
+    gh_profile_url = "https://github.com/" + github_user
     git_response = requests.get(gh_profile_url)
     user_dict["github"] = Selector(text=git_response.text)
     sleep(1)
 
-    readme_url = gh_profile_url + "/" + github_user
-    readme_response = requests.get(readme_url)
+    readme_response = requests.get(gh_profile_url + "/" + github_user)
     sleep(1)
 
     if readme_response.status_code == 200:
