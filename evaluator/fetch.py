@@ -44,11 +44,7 @@ def single_fetch_content(github_user):
 
 def many_fetch_content(list_of_dicts):
 
-    general_list_of_dicts = []
-
-    for each_dict in list_of_dicts:
-        general_list_of_dicts.append(
-            single_fetch_content(each_dict["github_username"])
-        )
-
-    return general_list_of_dicts
+    return [
+        single_fetch_content(each_dict["github_username"])
+        for each_dict in list_of_dicts
+    ]
