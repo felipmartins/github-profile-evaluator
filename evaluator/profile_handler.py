@@ -1,42 +1,42 @@
 def get_image_url(selector):
-    if selector == 404:
+    try:
+        return selector.css('a[itemprop="image"]::attr(href)').get()
+    except AttributeError:
         return None
-    image_url = selector.css('a[itemprop="image"]::attr(href)').get()
-    return image_url
 
 
 def get_sidebar(selector):
-    if selector == 404:
+    try:
+        return selector.css("div.js-profile-editable-area").get()
+    except AttributeError:
         return None
-    sidebar = selector.css("div.js-profile-editable-area").get()
-    return sidebar
 
 
 def get_repos(selector):
-    if selector == 404:
+    try:
+        repo = selector.css("span.Counter::text").get()
+    except AttributeError:
         return None
-    repo = selector.css("span.Counter::text").get()
-    if repo:
-        return int(repo)
-    else:
-        return 0
+    return int(repo) if repo else 0
 
 
 def get_pinned_repos(selector):
-    if selector == 404:
+    try:
+        check_pinned = selector.css("h2.f4.mb-2.text-normal::text").get()
+    except AttributeError:
         return None
-    check_pinned = selector.css("h2.f4.mb-2.text-normal::text").get()
-    if check_pinned:
-        if "Pinned" in check_pinned:
-            repo = selector.css("div.Box.d-flex.pinned-item-list-item").getall()
-        else:
-            repo = []
-    else:
-        repo = []
-    return len(repo)
+
+    if not check_pinned or "Pinned" not in check_pinned:
+        return 0
+
+    return len(selector.css("div.Box.d-flex.pinned-item-list-item").getall())
 
 
 def has_email(sidebar, readme):
+
+    if not (sidebar or readme):
+        return False
+
     providers = [
         "@gmail.com",
         "@hotmail.com",
@@ -48,24 +48,14 @@ def has_email(sidebar, readme):
         "@icloud.com",
     ]
 
-    if sidebar is None and readme is None:
-        return False
-    elif sidebar is None and readme is not None:
-        return any([email in readme.lower() for email in providers])
-    elif sidebar is not None and readme is None:
-        return any([email in sidebar.lower() for email in providers])
+    in_readme = any([email in str(readme).lower() for email in providers])
+    in_sidebar = any([email in str(sidebar).lower() for email in providers])
 
-    return any([email in readme.lower() for email in providers]) or any(
-        [email in sidebar.lower() for email in providers]
-    )
+    return in_sidebar or in_readme
 
 
 def has_linkedin(sidebar, readme):
-    if sidebar is None and readme is None:
-        return False
-    elif sidebar is None and readme is not None:
-        return "linkedin.com/in" in readme.lower()
-    elif sidebar is not None and readme is None:
-        return "linkedin.com/in" in sidebar.lower()
+    in_readme = "linkedin.com/in" in readme.lower() if readme else False
+    in_sidebar = "linkedin.com/in" in sidebar.lower() if sidebar else False
 
-    return "linkedin.com/in" in readme.lower() or "linkedin.com/in" in sidebar.lower()
+    return in_sidebar or in_readme

@@ -1,4 +1,3 @@
-from time import sleep
 from .utils import csv_to_list, check_usernamekey_in_csv
 from django.shortcuts import render, redirect, get_object_or_404
 from .export_pdf import export_file
