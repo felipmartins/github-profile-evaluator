@@ -8,11 +8,8 @@ from .evaluation import single_evaluation, do_group_evaluation
 from .create_evaluation import new_evaluation, new_group_evaluation
 from .models import Evaluation, GroupCSV, GroupEvaluation
 from .tracker import raise_evaluation_clicks, raise_group_evaluation_clicks
-
-from django.core.serializers import serialize
-
 from django.http import HttpResponse
-import json
+from json import dumps
 
 def index(request):
     context = {}
