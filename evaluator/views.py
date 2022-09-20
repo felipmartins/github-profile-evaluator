@@ -8,7 +8,9 @@ from .create_evaluation import new_evaluation, new_group_evaluation
 from .models import Evaluation, GroupCSV, GroupEvaluation
 from .tracker import raise_evaluation_clicks, raise_group_evaluation_clicks
 from django.http import HttpResponse
+
 from json import dumps
+
 
 def index(request):
     context = {}
@@ -17,21 +19,25 @@ def index(request):
             populate_dict(single_fetch_content(request.POST["github_user"]))
         )
         new_eval = new_evaluation(eval)
-        raise_evaluation_clicks()              
+        raise_evaluation_clicks()
         print(type(request))
         return redirect("evaluation", uuid=new_eval.uuid)
-    elif request.method == "GET" and 'github_user' in request.GET:
-        aval = Evaluation.objects.all().filter(github_user=request.GET["github_user"]).order_by('-evaluation_date')
-        if (len(aval) > 0):
+    elif request.method == "GET" and "github_user" in request.GET:
+        aval = (
+            Evaluation.objects.all()
+            .filter(github_user=request.GET["github_user"])
+            .order_by("-evaluation_date")
+        )
+        if len(aval) > 0:
             aval = aval[0]
             print(aval)
-            data = dumps({'grade':aval.grade}) 
-        else:       
-            aval =  single_evaluation(
+            data = dumps({"grade": aval.grade})
+        else:
+            aval = single_evaluation(
                 populate_dict(single_fetch_content(request.GET["github_user"]))
             )
-            data = dumps({'grade':aval['grade']})                 
-        return HttpResponse(data, content_type="application/json")        
+            data = dumps({"grade": aval["grade"]})
+        return HttpResponse(data, content_type="application/json")
     return render(request, "index.html", context)
 
 
@@ -42,7 +48,7 @@ def group_index(request):
         if request.FILES["file"]._name.endswith("csv"):
             csv_object = GroupCSV(file=request.FILES["file"])
             csv_object.save()
-            csv_list = csv_to_list('media/'+csv_object.file.name)
+            csv_list = csv_to_list("media/" + csv_object.file.name)
             request
             if not check_usernamekey_in_csv(csv_object, csv_list):
                 request.session[
