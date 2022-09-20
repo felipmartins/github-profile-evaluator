@@ -20,11 +20,17 @@ def index(request):
         raise_evaluation_clicks()              
         print(type(request))
         return redirect("evaluation", uuid=new_eval.uuid)
-    elif request.method == "GET" and 'github_user' in request.GET:        
-        aval =  single_evaluation(
-            populate_dict(single_fetch_content(request.GET["github_user"]))
-        )
-        data = dumps({'grade':aval['grade']})                 
+    elif request.method == "GET" and 'github_user' in request.GET:
+        aval = Evaluation.objects.all().filter(github_user=request.GET["github_user"]).order_by('-evaluation_date')
+        if (len(aval) > 0):
+            aval = aval[0]
+            print(aval)
+            data = dumps({'grade':aval.grade}) 
+        else:       
+            aval =  single_evaluation(
+                populate_dict(single_fetch_content(request.GET["github_user"]))
+            )
+            data = dumps({'grade':aval['grade']})                 
         return HttpResponse(data, content_type="application/json")        
     return render(request, "index.html", context)
 

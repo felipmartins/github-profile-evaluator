@@ -130,6 +130,7 @@ dmypy.json
 
 evaluator/media/*.jpg
 evaluator/media/photos/*.jpg
+evaluator/migrations/
 
 .vscode/
 
