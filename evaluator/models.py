@@ -63,3 +63,9 @@ class GroupEvaluation(models.Model):
 
     def __str__(self):
         return f"{self.github_user}: {self.grade}/100"
+
+
+class MedianGrade(models.Model):
+    median_grade = models.IntegerField()
+    create_date = models.DateField(auto_now_add=True)
+    update_date = models.DateField(auto_now=True)
