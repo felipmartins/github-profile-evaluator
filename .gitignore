@@ -134,3 +134,7 @@ evaluator/media/photos/*.jpg
 .vscode/
 
 todo.txt
+media/
+
+config/settings.py
+config/env.py
