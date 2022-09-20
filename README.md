@@ -1,6 +1,6 @@
 # Classifica o perfil de github das pessoas estudantes de acordo com alguns critérios
 
-Essa aplicação pode ser encontrada no seguinte endereço: <Inserir endereço futuramente>
+Essa aplicação pode ser encontrada no seguinte endereço: [Avaliador Git](https://avaliadorgit.com)
 
 ## Pré-Requisitos
 

@@ -5,47 +5,44 @@ from .face_detection import FaceDetector
 
 
 def single_fetch_content(github_user):
-    git_url = "https://github.com/" + github_user
-    readme_url = "https://github.com/" + github_user + "/" + github_user
 
-    git_response = requests.get(git_url)
+    user_dict = dict()
+    user_dict["github_username"] = github_user
+
+    gh_profile_url = "https://github.com/" + github_user
+    git_response = requests.get(gh_profile_url)
+    user_dict["github"] = Selector(text=git_response.text)
     sleep(1)
-    readme_response = requests.get(readme_url)
+
+    readme_response = requests.get(gh_profile_url + "/" + github_user)
     sleep(1)
-
-    user_dic = dict()
-
-    user_dic["github_username"] = github_user
-
-    user_dic["github"] = Selector(text=git_response.text)
 
     if readme_response.status_code == 200:
-        user_dic["github_readme"] = Selector(text=readme_response.text)
+        user_dict["github_readme"] = Selector(text=readme_response.text)
     else:
-        user_dic["github_readme"] = 404
+        user_dict["github_readme"] = None
 
-    photo_url = user_dic["github"].css('a[itemprop="image"]::attr(href)').get()
+    photo_url = (
+        user_dict["github"].css('a[itemprop="image"]::attr(href)').get()
+    )
 
-    if not bool(photo_url):
+    if not photo_url:
         photo_url = "https://i.imgur.com/PRiA9r9.png"
 
     photo_response = requests.get(photo_url)
     sleep(1)
 
-    with open("media/" + github_user + "_image.jpg", "wb") as handler:
+    gh_image_path = "evaluator/media/" + github_user + "_image.jpg"
+    with open(gh_image_path, "wb") as handler:
         handler.write(photo_response.content)
-        user_dic["photo"] = FaceDetector.find_faces(
-            "media/" + github_user + "_image.jpg"
-        )
+        user_dict["photo"] = FaceDetector.find_faces(gh_image_path)
 
-    return user_dic
+    return user_dict
 
 
 def many_fetch_content(list_of_dicts):
 
-    general_list_of_dicts = []
-
-    for each_dict in list_of_dicts:
-        general_list_of_dicts.append(single_fetch_content(each_dict["github_username"]))
-
-    return general_list_of_dicts
+    return [
+        single_fetch_content(each_dict["github_username"])
+        for each_dict in list_of_dicts
+    ]
