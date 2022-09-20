@@ -1,6 +1,15 @@
 from django.contrib import admin
-from django.urls import path
-from .views import index, evaluation, group_evaluation, group_index, pdf_export
+from rest_framework import routers
+from django.urls import path, include
+from .views import (
+    index,
+    evaluation,
+    group_evaluation,
+    group_index,
+    pdf_export,
+)
+from .viewsets import GradeViewSet
+
 
 urlpatterns = [
     path("", index, name="homepage"),
@@ -12,4 +21,5 @@ urlpatterns = [
         pdf_export,
         name="download-evaluation",
     ),
+    path("grade/", GradeViewSet.as_view({"get": "list"}), name="test"),
 ]
