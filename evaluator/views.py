@@ -24,7 +24,7 @@ def index(request):
         aval =  single_evaluation(
             populate_dict(single_fetch_content(request.GET["github_user"]))
         )
-        data = json.dumps({'grade':aval['grade']})                 
+        data = dumps({'grade':aval['grade']})                 
         return HttpResponse(data, content_type="application/json")        
     return render(request, "index.html", context)
 
