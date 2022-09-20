@@ -1,4 +1,4 @@
-from .calculate_media import get_median
+from .calculate_median import get_median
 from .fetch import single_fetch_content
 from .data_getter import populate_dict
 from .evaluation import single_evaluation
