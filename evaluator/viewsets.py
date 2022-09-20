@@ -9,6 +9,7 @@ from datetime import date, timedelta
 from rest_framework import viewsets
 from rest_framework.response import Response
 
+
 class GradeViewSet(viewsets.ModelViewSet):
     queryset = Evaluation.objects.all()
     serializer_class = GradeSerializer
@@ -21,8 +22,19 @@ class GradeViewSet(viewsets.ModelViewSet):
                 .filter(github_user=user)
                 .order_by("-evaluation_date")
             )
+            try:
+                refresh = request.query_params["refresh"]
+            except:
+                refresh = "false"
             if len(queryset) > 0:
                 queryset = queryset[0]
+                if (
+                    date.today() - queryset.evaluation_date > timedelta(days=3)
+                    or refresh.lower() == "true"
+                ):
+                    queryset = new_evaluation(
+                        single_evaluation(populate_dict(single_fetch_content(user)))
+                    )
             else:
                 queryset = new_evaluation(
                     single_evaluation(populate_dict(single_fetch_content(user)))
@@ -37,7 +49,14 @@ class GradeViewSet(viewsets.ModelViewSet):
                 median.save()
             else:
                 median = MedianGrade.objects.all()[0]
-                if median.update_date - date.today() > timedelta(days=7):
+                try:
+                    refresh = request.query_params["refresh"]
+                except:
+                    refresh = "false"
+                if (
+                    date.today() - median.update_date > timedelta(days=1)
+                    or refresh.lower() == "true"
+                ):
                     median.median_grade = get_median(
                         Evaluation.objects.all().order_by("grade")
                     )
