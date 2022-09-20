@@ -7,7 +7,8 @@ from .evaluation import single_evaluation, do_group_evaluation
 from .create_evaluation import new_evaluation, new_group_evaluation
 from .models import Evaluation, GroupCSV, GroupEvaluation
 from .tracker import raise_evaluation_clicks, raise_group_evaluation_clicks
-
+from django.http import HttpResponse
+from json import dumps
 
 def index(request):
     context = {}
@@ -16,9 +17,15 @@ def index(request):
             populate_dict(single_fetch_content(request.POST["github_user"]))
         )
         new_eval = new_evaluation(eval)
-        raise_evaluation_clicks()
+        raise_evaluation_clicks()              
+        print(type(request))
         return redirect("evaluation", uuid=new_eval.uuid)
-
+    elif request.method == "GET" and 'github_user' in request.GET:        
+        aval =  single_evaluation(
+            populate_dict(single_fetch_content(request.GET["github_user"]))
+        )
+        data = json.dumps({'grade':aval['grade']})                 
+        return HttpResponse(data, content_type="application/json")        
     return render(request, "index.html", context)
 
 
