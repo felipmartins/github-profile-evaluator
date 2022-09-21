@@ -49,7 +49,7 @@ class GradeViewSet(viewsets.ModelViewSet):
             else:
                 median = MedianGrade.objects.all()[0]
 
-                refresh = True if len(request.query_params["refresh"]) > 0 else False
+                refresh = True if request.query_params["refresh"] == 'true' else False
 
                 if (
                     date.today() - median.update_date > timedelta(days=1)
