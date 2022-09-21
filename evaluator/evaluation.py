@@ -2,15 +2,14 @@ from .fetch import many_fetch_content
 from .data_getter import populate_dicts
 
 
-def single_evaluation(user_dict):
+def single_evaluation(user_dict: dict) -> dict:
     grade = 0
-    user_dict["has_five_tags"]  = False
-    user_dict["has_ten_tags"]   = False
+    user_dict["has_five_tags"] = False
+    user_dict["has_ten_tags"] = False
     user_dict["has_five_repos"] = False
-    user_dict["has_ten_repos"]   = False
-    user_dict["has_two_pinned"]     = False
-    user_dict["has_four_pinned"]    = False
-
+    user_dict["has_ten_repos"] = False
+    user_dict["has_two_pinned"] = False
+    user_dict["has_four_pinned"] = False
 
     if user_dict["photo"]:
         grade += 10

@@ -22,15 +22,14 @@ class GradeViewSet(viewsets.ModelViewSet):
                 .filter(github_user=user)
                 .order_by("-evaluation_date")
             )
-            try:
-                refresh = request.query_params["refresh"]
-            except:
-                refresh = "false"
+
+            refresh = True if request.query_params["refresh"] == 'true' else False
+            
             if len(queryset) > 0:
                 queryset = queryset[0]
                 if (
                     date.today() - queryset.evaluation_date > timedelta(days=3)
-                    or refresh.lower() == "true"
+                    or refresh
                 ):
                     queryset = new_evaluation(
                         single_evaluation(populate_dict(single_fetch_content(user)))
@@ -49,13 +48,12 @@ class GradeViewSet(viewsets.ModelViewSet):
                 median.save()
             else:
                 median = MedianGrade.objects.all()[0]
-                try:
-                    refresh = request.query_params["refresh"]
-                except:
-                    refresh = "false"
+
+                refresh = True if request.query_params["refresh"] == 'true' else False
+
                 if (
                     date.today() - median.update_date > timedelta(days=1)
-                    or refresh.lower() == "true"
+                    or refresh
                 ):
                     median.median_grade = get_median(
                         Evaluation.objects.all().order_by("grade")
