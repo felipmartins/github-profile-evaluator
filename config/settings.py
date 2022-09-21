@@ -19,7 +19,7 @@ SECRET_KEY = 's5&71q^!*28tp8%6f7#2^)pb#ck6ujr_r9!@y5f%p%)ugbfb2z'
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['avaliadorgit.com', 'www.avaliadorgit.com']
+ALLOWED_HOSTS = ['avaliadorgit.com', 'www.avaliadorgit.com', 'tgs.fly.dev']
 
 
 # Application definition

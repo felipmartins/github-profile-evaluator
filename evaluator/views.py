@@ -20,7 +20,6 @@ def index(request):
         )
         new_eval = new_evaluation(eval)
         raise_evaluation_clicks()
-        print(type(request))
         return redirect("evaluation", uuid=new_eval.uuid)
     elif request.method == "GET" and "github_user" in request.GET:
         aval = (
@@ -30,7 +29,6 @@ def index(request):
         )
         if len(aval) > 0:
             aval = aval[0]
-            print(aval)
             data = dumps({"grade": aval.grade})
         else:
             aval = single_evaluation(
