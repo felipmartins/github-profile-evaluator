@@ -31,7 +31,7 @@ def single_fetch_content(github_user):
 
     photo_response = requests.get(photo_url)
 
-    gh_image_path = "evaluator/media/" + github_user + "_image.jpg"
+    gh_image_path = "media/" + github_user + "_image.jpg"
     with open(gh_image_path, "wb") as handler:
         handler.write(photo_response.content)
         user_dict["photo"] = FaceDetector.find_faces(gh_image_path)
