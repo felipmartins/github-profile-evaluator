@@ -23,7 +23,7 @@ class GradeViewSet(viewsets.ModelViewSet):
                 .order_by("-evaluation_date")
             )
 
-            refresh = True if len(request.query_params["refresh"]) > 0 else False
+            refresh = True if request.query_params["refresh"] == 'true' else False
             
             if len(queryset) > 0:
                 queryset = queryset[0]
