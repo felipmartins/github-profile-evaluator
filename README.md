@@ -28,24 +28,26 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-4. Certifique-se de criar as migrações (Caso seja necessário)
+4. Certifique-se de criar arquivo com as variáveis de ambiente (`.env`), um arquivo exemplo, com as variáveis necessárias para execução, está dentro do diretório config
+
+5. Certifique-se de criar as migrações (Caso seja necessário)
 
 ```bash
 python3 manage.py makemigrations
 ```
 
-5. Realize as migrações 
+6. Realize as migrações 
 
 ```bash
 python3 manage.py migrate
 ```
 
-6. Execute localmente em sua máquina a aplicação Django
+7. Execute localmente em sua máquina a aplicação Django
 ```bash
 python3 manage.py runserver
 ```
 
-7. Acesse a aplicação na porta 8000 do seu localhost, basta ir no navegador e digitar:
+8. Acesse a aplicação na porta 8000 do seu localhost, basta ir no navegador e digitar:
 ```bash
 127.0.0.1:8000
 ```
