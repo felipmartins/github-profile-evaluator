@@ -8,7 +8,7 @@ Para rodar localmente esse projeto em sua máquina será necessário ter uma ins
 
 
 ## Execução da aplicação localmente
----
+
 
 1. Crie o ambiente virtual
 
@@ -51,7 +51,6 @@ python3 manage.py runserver
 ```
 
 ## Para devs:
----
 
 ### Rotas:
 
