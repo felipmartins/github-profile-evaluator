@@ -96,3 +96,8 @@ https://avaliadorgit.com/?github_user=<username>?refresh=true
 ## Sugestões de melhoria
 
 Sinta-se à vontade para me contactar para que possamos melhorar ainda mais essa ferramenta.
+
+> Começe criando um `fork` deste repositório, crie uma branch para sua feature e suba um pull request. 💚
+
+
+![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)
