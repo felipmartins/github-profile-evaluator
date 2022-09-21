@@ -12,10 +12,10 @@ def single_fetch_content(github_user):
     gh_profile_url = "https://github.com/" + github_user
     git_response = requests.get(gh_profile_url)
     user_dict["github"] = Selector(text=git_response.text)
-    sleep(1)
+    sleep(0.5)
 
     readme_response = requests.get(gh_profile_url + "/" + github_user)
-    sleep(1)
+    sleep(0.5)
 
     if readme_response.status_code == 200:
         user_dict["github_readme"] = Selector(text=readme_response.text)
@@ -30,7 +30,6 @@ def single_fetch_content(github_user):
         photo_url = "https://i.imgur.com/PRiA9r9.png"
 
     photo_response = requests.get(photo_url)
-    sleep(1)
 
     gh_image_path = "evaluator/media/" + github_user + "_image.jpg"
     with open(gh_image_path, "wb") as handler:
