@@ -52,6 +52,9 @@ python3 manage.py runserver
 127.0.0.1:8000
 ```
 
+9. Caso tenha algum problema relacionado à autenticação SSL da página, tente fazer o acesso ao localhost via navegação anônima
+
+
 ## Para devs:
 
 ### Rotas:
