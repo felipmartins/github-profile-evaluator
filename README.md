@@ -4,7 +4,7 @@ Essa aplicação pode ser encontrada no seguinte endereço: [Avaliador Git](http
 
 ## Pré-Requisitos
 
-Para rodar localmente esse projeto em sua máquina será necessário ter uma instalação do Python 3 compatível com o projeto e, além disso, fazer algumas configurações antes mesmo de conseguir executá-lo localmente. (Como nem todas as versões foram testadas, podem haver problemas de compatibilidade.)
+Para rodar localmente esse projeto em sua máquina será necessário ter uma instalação do `Python 3` compatível com o projeto e, além disso, fazer algumas configurações antes mesmo de conseguir executá-lo localmente. (Como nem todas as versões foram testadas, podem haver problemas de compatibilidade.)
 
 
 ## Execução da aplicação localmente
@@ -50,7 +50,35 @@ python3 manage.py runserver
 127.0.0.1:8000
 ```
 
+## Para devs:
+---
 
+### Rotas:
+
+#### Route param:
+```bash
+https://avaliadorgit.com/grade/
+```
+- Retorna um `json` com o atributo `median_grade` que representa a **mediana** das notas avaliadas pela ferramenta.
+
+#### Query param:
+```bash
+https://avaliadorgit.com/?refresh=true/
+```
+- Irá recalcular a mediana das notas avaliadas pela ferramenta.
+
+```bash
+https://avaliadorgit.com/?github_user=<username>
+```
+- Retornará um `json` com o atributo `grade` que representa a nota mais recente do `github_user` (3 dias), caso não encontre irá refazer a avaliação.
+
+```bash
+https://avaliadorgit.com/?github_user=<username>?refresh=true
+```
+- Irá forçar o avaliador a refazer a avaliçaõ do `github_user` passado e retornará um `json` com o atributo `grade` que representa a nota do `github_user`.
+
+> 💡Dica: utilize essa rota enquanto você está adaptando o seu perfil e quer uma resposta imediata.
+  
 ## Critérios de Avaliação (Nota máxima = 100)
 
 - É identificado um rosto na foto da pessoa (+10)
