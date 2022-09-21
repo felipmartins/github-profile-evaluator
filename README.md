@@ -28,7 +28,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-4. Certifique-se de criar arquivo com as variáveis de ambiente (`.env`), um arquivo exemplo, com as variáveis necessárias para execução, está dentro do diretório config
+4. Certifique-se de criar arquivo com as variáveis de ambiente (`.env`) dentro da pasta config, um arquivo exemplo, com as variáveis necessárias para execução, se encontra dentro desta mesma pasta
 
 5. Certifique-se de criar as migrações (Caso seja necessário)
 
