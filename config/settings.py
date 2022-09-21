@@ -9,7 +9,7 @@ SECRET_KEY = env("SECRET_KEY")
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = True if env("DEBUG")=='True' else False
+DEBUG = True if env("DEBUG") == "True" else False
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(", ")
 
@@ -120,6 +120,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 if not DEBUG:
 
     SECURE_PROXY_SSL_HEADER = env("SECURE_PROXY_SSL_HEADER").split(", ")
-    SECURE_SSL_REDIRECT = True if env("SECURE_SSL_REDIRECT")=='True' else False
-    SESSION_COOKIE_SECURE = True if env("SESSION_COOKIE_SECURE")=='True' else False
-    CSRF_COOKIE_SECURE = True if env("CSRF_COOKIE_SECURE")=='True' else False
+    SECURE_SSL_REDIRECT = True if env("SECURE_SSL_REDIRECT") == "True" else False
+    SESSION_COOKIE_SECURE = True if env("SESSION_COOKIE_SECURE") == "True" else False
+    CSRF_COOKIE_SECURE = True if env("CSRF_COOKIE_SECURE") == "True" else False
