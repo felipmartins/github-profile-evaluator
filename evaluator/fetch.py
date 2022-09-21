@@ -1,10 +1,9 @@
 import requests
-from time import sleep
 from parsel import Selector
 from .face_detection import FaceDetector
 
 
-def single_fetch_content(github_user):
+def single_fetch_content(github_user: str) -> dict:
 
     user_dict = dict()
     user_dict["github_username"] = github_user
@@ -12,16 +11,11 @@ def single_fetch_content(github_user):
     gh_profile_url = "https://github.com/" + github_user
     git_response = requests.get(gh_profile_url)
     user_dict["github"] = Selector(text=git_response.text)
-    sleep(0.5)
 
-    readme_response = requests.get(gh_profile_url + "/" + github_user)
-    sleep(0.5)
-
-    if readme_response.status_code == 200:
-        user_dict["github_readme"] = Selector(text=readme_response.text)
-    else:
-        user_dict["github_readme"] = None
-
+    readme_response = requests.get(gh_profile_url + "/" + github_user)    
+    
+    user_dict["github_readme"] = Selector(text=readme_response.text) if readme_response.status_code == 200 else None
+    
     photo_url = (
         user_dict["github"].css('a[itemprop="image"]::attr(href)').get()
     )
@@ -39,7 +33,7 @@ def single_fetch_content(github_user):
     return user_dict
 
 
-def many_fetch_content(list_of_dicts):
+def many_fetch_content(list_of_dicts: list) -> list:
 
     return [
         single_fetch_content(each_dict["github_username"])

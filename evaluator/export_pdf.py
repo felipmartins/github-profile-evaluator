@@ -36,9 +36,7 @@ def export_file(type: str, uuid: str):
             A4[1] - height,
             "Avaliação realizada em " + evaluation.evaluation_date.strftime("%d/%m/%Y"),
         )
-        logo = ImageReader(
-            "media/" + evaluation.github_user + "_image.jpg"
-        )
+        logo = ImageReader("media/" + evaluation.github_user + "_image.jpg")
         logo.getSize()
         width = logo._width
         height += 235
