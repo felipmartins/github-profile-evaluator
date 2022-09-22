@@ -16,7 +16,7 @@ class FaceDetector:
         ]
         for cascade in cascades:
             frontal = cv2.CascadeClassifier("evaluator/" + cascade)
-            
+
             image = cv2.imread(path)
 
             if image is None:
@@ -41,6 +41,8 @@ class FaceDetector:
                 cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
             cv2.imwrite(path, image)
-        
+
             if bool(len(faces[0])):
                 return bool(len(faces[0]))
+
+        return False
