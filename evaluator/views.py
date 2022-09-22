@@ -108,7 +108,7 @@ def new_index(request):
         return JsonResponse({'grade': eval.grade})
     
     if request.method ==  "GET" and "github_user" in request.GET and "refresh" in request.GET:
-        if request.query_params["refresh"].lower() == 'true':
+        if request.GET["refresh"].lower() == 'true':
             eval = new_evaluation(single_evaluation(populate_dict(single_fetch_content(request.GET["github_user"]))))
             return JsonResponse({'grade': eval.grade})
         else:
