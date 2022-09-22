@@ -1,8 +1,10 @@
+from django.views.decorators.csrf import csrf_exempt
 from .utils import csv_to_list, check_usernamekey_in_csv
 from django.shortcuts import render, redirect, get_object_or_404
 from .export_pdf import export_file
 from .fetch import single_fetch_content
 from .data_getter import populate_dict
+from .serializer import serialize_eval
 from .evaluation import single_evaluation, do_group_evaluation
 from .create_evaluation import new_evaluation, new_group_evaluation
 from .models import Evaluation, GroupCSV, GroupEvaluation
@@ -11,6 +13,15 @@ from django.http import HttpResponse, JsonResponse
 from datetime import date, timedelta
 
 from json import dumps
+
+
+def get_or_create_csrf_token(request):
+    token = request.META.get("CSRF_COOKIE", None)
+    if token is None:
+        token = csrf._get_new_csrf_key()
+        request.META["CSRF_COOKIE"] = token
+    request.META["CSRF_COOKIE_USED"] = True
+    return token
 
 
 def index(request):
@@ -84,32 +95,38 @@ def group_evaluation(request, uuid: str):
 def pdf_export(request, type: str, uuid: str):
     return export_file(type, uuid)
 
+
+@csrf_exempt
 def new_index(request):
-    if request.method ==  "GET" and "github_user" in request.GET:
+    if request.method == "GET" and "github_user" in request.GET:
         refresh = False
-        if 'refresh' in request.GET:
-            refresh = True if request.GET["refresh"].lower() == 'true' else False
+        if "refresh" in request.GET:
+            refresh = True if request.GET["refresh"].lower() == "true" else False
         user = request.GET["github_user"]
         eval = (
-                Evaluation.objects.all()
-                .filter(github_user=user)
-                .order_by("-evaluation_date")
-            )
+            Evaluation.objects.all()
+            .filter(github_user=user)
+            .order_by("-evaluation_date")
+        )
 
         if len(eval) > 0:
-                eval = eval[0]
-                if date.today() - eval.evaluation_date > timedelta(days=3) or refresh:
-                    eval = new_evaluation(
-                        single_evaluation(populate_dict(single_fetch_content(user)))
-                    )
+            eval = eval[0]
+            if date.today() - eval.evaluation_date > timedelta(days=3) or refresh:
+                eval = new_evaluation(
+                    single_evaluation(populate_dict(single_fetch_content(user)))
+                )
         else:
             eval = new_evaluation(
                 single_evaluation(populate_dict(single_fetch_content(user)))
             )
-        
-        return JsonResponse({'grade': eval.grade})
-                
-    elif request.method ==  "POST":
-        ...
+
+        return JsonResponse({"grade": eval.grade})
+
+    elif request.method == "POST":
+        eval = single_evaluation(
+            populate_dict(single_fetch_content(request.POST["github_user"]))
+        )
+        return JsonResponse(serialize_eval(new_evaluation(eval)))
+
     else:
-        return JsonResponse({'error':'not found'})
+        return JsonResponse({"error": "not found"})
