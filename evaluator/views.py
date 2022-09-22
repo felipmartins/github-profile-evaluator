@@ -11,17 +11,7 @@ from .models import Evaluation, GroupCSV, GroupEvaluation
 from .tracker import raise_evaluation_clicks, raise_group_evaluation_clicks
 from django.http import HttpResponse, JsonResponse
 from datetime import date, timedelta
-
 from json import dumps
-
-
-def get_or_create_csrf_token(request):
-    token = request.META.get("CSRF_COOKIE", None)
-    if token is None:
-        token = csrf._get_new_csrf_key()
-        request.META["CSRF_COOKIE"] = token
-    request.META["CSRF_COOKIE_USED"] = True
-    return token
 
 
 def index(request):
