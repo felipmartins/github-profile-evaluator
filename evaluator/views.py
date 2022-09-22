@@ -106,6 +106,31 @@ def new_index(request):
             )
         
         return JsonResponse({'grade': eval.grade})
+    
+    if request.method ==  "GET" and "github_user" in request.GET and "refresh" in request.GET:
+        if request.query_params["refresh"].lower() == 'true':
+            eval = new_evaluation(single_evaluation(populate_dict(single_fetch_content(request.GET["github_user"]))))
+            return JsonResponse({'grade': eval.grade})
+        else:
+            user = request.GET["github_user"]
+            eval = (
+                    Evaluation.objects.all()
+                    .filter(github_user=user)
+                    .order_by("-evaluation_date")
+                )
+
+            if len(eval) > 0:
+                    eval = eval[0]
+                    if date.today() - eval.evaluation_date > timedelta(days=3):
+                        eval = new_evaluation(
+                            single_evaluation(populate_dict(single_fetch_content(user)))
+                        )
+            else:
+                eval = new_evaluation(
+                    single_evaluation(populate_dict(single_fetch_content(user)))
+                )
+            
+            return JsonResponse({'grade': eval.grade})
                 
     elif request.method ==  "POST":
         ...
