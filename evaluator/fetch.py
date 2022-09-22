@@ -1,4 +1,5 @@
 import requests
+from time import sleep
 from parsel import Selector
 from .face_detection import FaceDetector
 
@@ -35,7 +36,10 @@ def single_fetch_content(github_user: str) -> dict:
 
 def many_fetch_content(list_of_dicts: list) -> list:
 
-    return [
-        single_fetch_content(each_dict["github_username"])
-        for each_dict in list_of_dicts
-    ]
+    fetch_group = []
+
+    for each_dict in list_of_dicts:
+        fetch_group.append(single_fetch_content(each_dict["github_username"]))
+        sleep(1)
+
+    return fetch_group
