@@ -7,7 +7,7 @@ from .evaluation import single_evaluation, do_group_evaluation
 from .create_evaluation import new_evaluation, new_group_evaluation
 from .models import Evaluation, GroupCSV, GroupEvaluation
 from .tracker import raise_evaluation_clicks, raise_group_evaluation_clicks
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from json import dumps
 
@@ -82,3 +82,7 @@ def group_evaluation(request, uuid: str):
 
 def pdf_export(request, type: str, uuid: str):
     return export_file(type, uuid)
+
+def new_index(request):
+
+    return JsonResponse({'key':'oloquinho meu'})
