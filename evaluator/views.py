@@ -85,6 +85,4 @@ def pdf_export(request, type: str, uuid: str):
 
 def new_index(request):
 
-    data = dumps({'key':'oloquinho meu'})
-    return HttpResponse(data, content_type="application/json")
-
+    return JsonResponse({'key':'oloquinho meu'})
