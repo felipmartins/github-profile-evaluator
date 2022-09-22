@@ -86,15 +86,15 @@ def pdf_export(request, type: str, uuid: str):
 
 def new_index(request):
 
-    if request.method ==  "GET" and "github_user" in request.query_params:
-        user = request.query_params["github_user"]
+    if request.method ==  "GET" and "github_user" in request.GET:
+        user = request.GET["github_user"]
         eval = (
                 Evaluation.objects.all()
                 .filter(github_user=user)
                 .order_by("-evaluation_date")
             )
 
-        refresh = True if request.query_params["refresh"] == 'true' else False
+        refresh = True if request.GET["refresh"] == 'true' else False
 
         if len(eval) > 0:
                 eval = eval[0]
