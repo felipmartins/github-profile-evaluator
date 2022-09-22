@@ -8,6 +8,7 @@ from .create_evaluation import new_evaluation, new_group_evaluation
 from .models import Evaluation, GroupCSV, GroupEvaluation
 from .tracker import raise_evaluation_clicks, raise_group_evaluation_clicks
 from django.http import HttpResponse, JsonResponse
+from datetime import date, timedelta
 
 from json import dumps
 
@@ -85,4 +86,33 @@ def pdf_export(request, type: str, uuid: str):
 
 def new_index(request):
 
-    return JsonResponse({'key':'oloquinho meu'})
+    if request.method ==  "GET" and "github_user" in request.query_params:
+        user = request.query_params["github_user"]
+        eval = (
+                Evaluation.objects.all()
+                .filter(github_user=user)
+                .order_by("-evaluation_date")
+            )
+
+        refresh = True if request.query_params["refresh"] == 'true' else False
+
+        if len(eval) > 0:
+                eval = eval[0]
+                if (
+                    date.today() - eval.evaluation_date > timedelta(days=3)
+                    or refresh
+                ):
+                    eval = new_evaluation(
+                        single_evaluation(populate_dict(single_fetch_content(user)))
+                    )
+        else:
+            eval = new_evaluation(
+                single_evaluation(populate_dict(single_fetch_content(user)))
+            )
+        
+        return JsonResponse({'grade': eval.grade})
+                
+    elif request.method ==  "POST":
+        ...
+    else:
+        return JsonResponse({'error':'not found'})
