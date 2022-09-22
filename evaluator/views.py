@@ -94,14 +94,9 @@ def new_index(request):
                 .order_by("-evaluation_date")
             )
 
-        refresh = True if request.GET["refresh"] == 'true' else False
-
         if len(eval) > 0:
                 eval = eval[0]
-                if (
-                    date.today() - eval.evaluation_date > timedelta(days=3)
-                    or refresh
-                ):
+                if date.today() - eval.evaluation_date > timedelta(days=3):
                     eval = new_evaluation(
                         single_evaluation(populate_dict(single_fetch_content(user)))
                     )
