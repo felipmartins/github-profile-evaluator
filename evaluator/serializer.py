@@ -17,7 +17,7 @@ class MedianSerializer(serializers.HyperlinkedModelSerializer):
 def serialize_eval(evaluation):
     return {
         "github_user": evaluation.github_user,
-        "img_url": evaluation.github_user + "_image.jpg",
+        "img_url": "https://avaliadorgit.com/media/" + evaluation.github_user + "_image.jpg",
         "has_photo": evaluation.has_photo,
         "has_email": evaluation.has_email,
         "has_linkedin": evaluation.has_linkedin,
@@ -27,8 +27,5 @@ def serialize_eval(evaluation):
         "has_ten_or_more_repos": evaluation.has_ten_or_more_repos,
         "has_two_or_more_pinned": evaluation.has_two_or_more_pinned,
         "has_four_or_more_pinned": evaluation.has_four_or_more_pinned,
-        "grade": evaluation.grade,
-        "stacks": evaluation.stacks,
-        "repositories": evaluation.repositories,
-        "pinned_repositories": evaluation.pinned_repositories,
+        "grade": evaluation.grade
     }
