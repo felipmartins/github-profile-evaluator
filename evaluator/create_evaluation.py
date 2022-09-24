@@ -5,6 +5,7 @@ def new_evaluation(user_dic):
 
     new_eval = Evaluation(
         github_user=user_dic["github_username"],
+        has_profile_readme=True if user_dic["readme"] else False,
         has_photo=user_dic["photo"],
         has_email=user_dic["email"],
         has_linkedin=user_dic["linkedin"],
@@ -33,6 +34,7 @@ def new_group_evaluation(list_of_dicts, group_csv):
         new_eval = GroupEvaluation(
             csv_file=group_csv,
             github_user=user_dic["github_username"],
+            has_profile_readme=True if user_dic["readme"] else False,
             has_photo=user_dic["photo"],
             has_email=user_dic["email"],
             has_linkedin=user_dic["linkedin"],
