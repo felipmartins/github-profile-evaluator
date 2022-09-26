@@ -11,18 +11,18 @@ def single_fetch_content(github_user: str) -> dict:
 
     gh_profile_url = "https://github.com/" + github_user
     git_response = requests.get(gh_profile_url)
-    user_dict["github"] = Selector(text=git_response.text)
+    user_dict["github"] = Selector(text=git_response.text) if git_response.status_code == 200 else None
 
     readme_response = requests.get(gh_profile_url + "/" + github_user)    
     
     user_dict["github_readme"] = Selector(text=readme_response.text) if readme_response.status_code == 200 else None
-    
-    photo_url = (
-        user_dict["github"].css('a[itemprop="image"]::attr(href)').get()
-    )
 
-    if not photo_url:
+    if not user_dict["github"]:
         photo_url = "https://i.imgur.com/PRiA9r9.png"
+    else:
+        photo_url = (
+        user_dict["github"].css('a[itemprop="image"]::attr(href)').get()
+        )
 
     photo_response = requests.get(photo_url)
 
