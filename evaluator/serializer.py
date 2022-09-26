@@ -1,4 +1,3 @@
-import locale
 from .models import Evaluation, MedianGrade
 from rest_framework import serializers
 
@@ -16,7 +15,6 @@ class MedianSerializer(serializers.HyperlinkedModelSerializer):
 
 
 def serialize_eval(evaluation):
-    locale.setlocale(locale.LC_TIME, "pt_BR")
     return {
         "github_user": evaluation.github_user,
         "img_url": "https://avaliadorgit.com/media/" + evaluation.github_user + "_image.jpg",
