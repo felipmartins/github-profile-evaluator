@@ -3,6 +3,9 @@ from .data_getter import populate_dicts
 
 
 def single_evaluation(user_dict: dict) -> dict:
+    if not user_dict["github"]:
+        user_dict["grade"] = 0
+        return user_dict
     grade = 0
     user_dict["has_five_tags"] = False
     user_dict["has_ten_tags"] = False
