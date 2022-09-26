@@ -31,5 +31,5 @@ def serialize_eval(evaluation):
         "has_two_or_more_pinned": evaluation.has_two_or_more_pinned,
         "has_four_or_more_pinned": evaluation.has_four_or_more_pinned,
         "grade": evaluation.grade,
-        "evaluation_date": evaluation.evaluation_date.strftime("%d de %B de %Y")
+        "evaluation_date": evaluation.evaluation_date.strftime("%d/%m/%Y")
     }
