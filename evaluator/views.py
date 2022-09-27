@@ -105,25 +105,36 @@ def new_index(request):
             if date.today() - eval.evaluation_date > timedelta(days=3) or refresh:
                 eval_dict = single_evaluation(populate_dict(single_fetch_content(user)))
                 if not eval_dict["github"]:
-                    return JsonResponse({"status":"false", "message": "precondition failed"},status=412)
+                    return JsonResponse(
+                        {"status": "false", "message": "precondition failed"},
+                        status=412,
+                    )
                 eval = new_evaluation(eval_dict)
                 status = 201
         else:
             eval_dict = single_evaluation(populate_dict(single_fetch_content(user)))
             if not eval_dict["github"]:
-                    return JsonResponse({"status":"false", "message": "precondition failed"},status=412)
+                return JsonResponse(
+                    {"status": "false", "message": "precondition failed"}, status=412
+                )
             eval = new_evaluation(eval_dict)
             status = 201
 
         return JsonResponse({"grade": eval.grade}, status=status)
 
     elif request.method == "POST":
-        eval_dict = single_evaluation(populate_dict(single_fetch_content(request.POST["github_user"])))
-        
+        eval_dict = single_evaluation(
+            populate_dict(single_fetch_content(request.POST["github_user"]))
+        )
+
         if not eval_dict["github"]:
-            return JsonResponse({"status":"false", "message": "precondition failed"},status=412)
+            return JsonResponse(
+                {"status": "false", "message": "precondition failed"}, status=412
+            )
 
         return JsonResponse(serialize_eval(new_evaluation(eval_dict)), status=201)
 
     else:
-        return JsonResponse({"status":"false", "message": "method not allowed"}, status=405)
+        return JsonResponse(
+            {"status": "false", "message": "method not allowed"}, status=405
+        )
