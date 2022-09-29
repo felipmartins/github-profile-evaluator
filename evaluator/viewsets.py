@@ -23,8 +23,8 @@ class GradeViewSet(viewsets.ModelViewSet):
                 .order_by("-evaluation_date")
             )
 
-            refresh = True if request.query_params["refresh"] == 'true' else False
-            
+            refresh = True if request.query_params["refresh"] == "true" else False
+
             if len(queryset) > 0:
                 queryset = queryset[0]
                 if (
@@ -49,12 +49,9 @@ class GradeViewSet(viewsets.ModelViewSet):
             else:
                 median = MedianGrade.objects.all()[0]
 
-                refresh = True if request.query_params["refresh"] == 'true' else False
+                refresh = True if request.query_params["refresh"] == "true" else False
 
-                if (
-                    date.today() - median.update_date > timedelta(days=1)
-                    or refresh
-                ):
+                if date.today() - median.update_date > timedelta(days=1) or refresh:
                     median.median_grade = get_median(
                         Evaluation.objects.all().order_by("grade")
                     )
