@@ -21,7 +21,6 @@ class FaceDetector:
             if image is None:
                 return False
 
-
             faces, _, confidence = frontal.detectMultiScale3(
                 image, scaleFactor=1.1, minNeighbors=5, outputRejectLevels=True
             )
@@ -29,7 +28,7 @@ class FaceDetector:
             if bool(len(faces)):
 
                 x, y, w, h = faces[confidence.argmax()]
-                
+
                 cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
                 cv2.imwrite(path, image)
                 return bool(len(faces))
