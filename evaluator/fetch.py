@@ -44,6 +44,6 @@ def many_fetch_content(list_of_dicts: list) -> list:
 
     for each_dict in list_of_dicts:
         fetch_group.append(single_fetch_content(each_dict["github_username"]))
-        sleep(1)
+        sleep(0.5)
 
     return fetch_group
