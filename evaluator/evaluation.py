@@ -3,16 +3,24 @@ from .data_getter import populate_dicts
 
 
 def single_evaluation(user_dict: dict) -> dict:
-    if not user_dict["github"]:
-        user_dict["grade"] = 0
-        return user_dict
-    grade = 0
     user_dict["has_five_tags"] = False
     user_dict["has_ten_tags"] = False
     user_dict["has_five_repos"] = False
     user_dict["has_ten_repos"] = False
     user_dict["has_two_pinned"] = False
     user_dict["has_four_pinned"] = False
+
+    if not user_dict["github"]:
+        user_dict["grade"] = 0
+        user_dict["readme"] = False
+        user_dict["linkedin"] = False
+        user_dict["email"] = False
+        user_dict["tags"] = 0
+        user_dict["repos"] = 0
+        user_dict["pinned"] = 0
+        return user_dict
+    
+    grade = 0
 
     if user_dict["photo"]:
         grade += 10
@@ -58,7 +66,8 @@ def do_group_evaluation(general_list_of_dicts):
     general_list_of_dicts = many_fetch_content(general_list_of_dicts)
 
     general_list_of_dicts = populate_dicts(general_list_of_dicts)
-    for each_dict in general_list_of_dicts:
-        each_dict = single_evaluation(each_dict)
+    for index, each_dict in enumerate(general_list_of_dicts):
+        general_list_of_dicts[index] = single_evaluation(each_dict)
+        print(each_dict["github_username"])
 
     return general_list_of_dicts
