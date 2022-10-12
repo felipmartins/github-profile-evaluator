@@ -23,7 +23,7 @@ def populate_dict(user_dict):
 def populate_dicts(list_of_dicts):
 
     for index, each_dict in enumerate(list_of_dicts):
-        populate_dict(each_dict)
-        print(f"pessoa #{index} de {len(list_of_dicts)}")
+        list_of_dicts[index] = populate_dict(each_dict)
+        print(f"pessoa #{index+1} de {len(list_of_dicts)}")
 
     return list_of_dicts
