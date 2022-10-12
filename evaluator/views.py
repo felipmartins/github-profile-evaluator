@@ -49,7 +49,6 @@ def group_index(request):
             csv_object = GroupCSV(file=request.FILES["file"])
             csv_object.save()
             csv_list = csv_to_list("media/" + csv_object.file.name)
-            request
             if not check_usernamekey_in_csv(csv_object, csv_list):
                 request.session[
                     "erro"
