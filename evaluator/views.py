@@ -143,6 +143,6 @@ def index_fastapi(request):
     context = {}
     if request.method == "POST":
         response = requests.get('https://3e9c-2804-584-a18e-8e01-1416-64c-c2b1-b97a.sa.ngrok.io/evaluation/'+request.POST["github_user"])
-        new_eval = new_evaluation(eval)
+        new_eval = new_evaluation(response.json())
         return redirect("evaluation", uuid=new_eval.uuid)
     return render(request, "index.html", context)
