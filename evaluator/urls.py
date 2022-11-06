@@ -8,7 +8,8 @@ from .views import (
     group_index,
     pdf_export,
     new_index,
-    index_fastapi
+    index_fastapi,
+    group_index_fastapi
 )
 from .viewsets import GradeViewSet
 
@@ -25,5 +26,6 @@ urlpatterns = [
     ),
     path("grade/", GradeViewSet.as_view({"get": "list"}), name="test"),
     path("teste/", new_index, name="new-index"),
-    path("fastapi_teste/", index_fastapi, name="fastapi-single-index")
+    path("fastapi_teste/", index_fastapi, name="fastapi-single-index"),
+    path("fastapi_teste/group/", group_index_fastapi, name="fastapi-group-index")
 ]

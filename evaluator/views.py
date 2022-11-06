@@ -142,7 +142,41 @@ def new_index(request):
 def index_fastapi(request):
     context = {}
     if request.method == "POST":
-        response = requests.get('https://3e9c-2804-584-a18e-8e01-1416-64c-c2b1-b97a.sa.ngrok.io/evaluation/'+request.POST["github_user"])
+        response = requests.get('https://1591-177-17-65-54.sa.ngrok.io/evaluation/'+request.POST["github_user"])
         new_eval = new_evaluation(response.json())
         return redirect("evaluation", uuid=new_eval.uuid)
     return render(request, "index.html", context)
+
+
+def group_index_fastapi(request):
+    context = {}
+
+    if request.method == "POST":
+        if request.FILES["file"]._name.endswith("csv"):
+            csv_object = GroupCSV(file=request.FILES["file"])
+            csv_object.save()
+            csv_list = csv_to_list("media/" + csv_object.file.name)
+            request_string = '?'
+            for user in csv_list:
+                request_string+=f'user={user["github_username"]}&'
+            if not check_usernamekey_in_csv(csv_object, csv_list):
+                request.session[
+                    "erro"
+                ] = 'Coluna "github_username" não existe dentro do arquivo csv!!!'
+                return redirect("group-homepage")
+            if "erro" in request.session:
+                del request.session["erro"]
+            response = requests.get('https://1591-177-17-65-54.sa.ngrok.io/evaluation/'+request_string)
+            if response.status_code == 200:
+                new_group_evaluation(response.json(), csv_object)
+                return redirect("group-evaluation", uuid=csv_object.uuid)
+            else:
+                request.session[
+                    "erro"
+                ] = 'A requisição falhou!'
+                return redirect("group-homepage")
+        else:
+            request.session["erro"] = "Arquivo com extensão inválida!!!"
+            return redirect("group-homepage")
+
+    return render(request, "group_index.html", context)
