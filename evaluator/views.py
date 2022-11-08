@@ -142,7 +142,7 @@ def new_index(request):
 def index_fastapi(request):
     context = {}
     if request.method == "POST":
-        response = requests.get('https://5ee2-177-17-65-54.sa.ngrok.io/evaluation/'+request.POST["github_user"])
+        response = requests.get('https://b151-2804-2488-308b-7cf0-a028-d4be-c1ec-fbc8.sa.ngrok.io/evaluation/'+request.POST["github_user"])
         new_eval = new_evaluation(response.json())
         return redirect("evaluation", uuid=new_eval.uuid)
     return render(request, "index.html", context)
@@ -166,7 +166,7 @@ def group_index_fastapi(request):
                 return redirect("group-homepage")
             if "erro" in request.session:
                 del request.session["erro"]
-            response = requests.get('https://5ee2-177-17-65-54.sa.ngrok.io/group-evaluation'+request_string)
+            response = requests.get('https://b151-2804-2488-308b-7cf0-a028-d4be-c1ec-fbc8.sa.ngrok.io'+request_string)
             if response.status_code == 200:
                 new_group_evaluation(response.json(), csv_object)
                 return redirect("group-evaluation", uuid=csv_object.uuid)
