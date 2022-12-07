@@ -9,7 +9,8 @@ from .views import (
     pdf_export,
     new_index,
     index_fastapi,
-    group_index_fastapi
+    group_index_fastapi,
+    csv_export
 )
 from .viewsets import GradeViewSet
 
@@ -20,9 +21,14 @@ urlpatterns = [
     path("evaluation/single/<str:uuid>", evaluation, name="evaluation"),
     path("evaluation/group/<str:uuid>", group_evaluation, name="group-evaluation"),
     path(
-        "evaluation/<str:type>/<str:uuid>/download",
+        "evaluation/<str:type>/<str:uuid>/pdf/download",
         pdf_export,
         name="download-evaluation",
+    ),
+    path(
+        "evaluation/<str:type>/<str:uuid>/csv/download",
+        csv_export,
+        name="download-csv",
     ),
     path("grade/", GradeViewSet.as_view({"get": "list"}), name="test"),
     path("teste/", new_index, name="new-index"),

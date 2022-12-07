@@ -2,6 +2,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .utils import csv_to_list, check_usernamekey_in_csv
 from django.shortcuts import render, redirect, get_object_or_404
 from .export_pdf import export_file
+from .export_csv import export_group_csv
 from .fetch import single_fetch_content
 from .data_getter import populate_dict
 from .serializer import serialize_eval
@@ -85,6 +86,9 @@ def group_evaluation(request, uuid: str):
 def pdf_export(request, type: str, uuid: str):
     return export_file(type, uuid)
 
+def csv_export(request, type: str, uuid: str):
+    return export_group_csv(uuid)
+
 
 @csrf_exempt
 def new_index(request):
@@ -142,7 +146,7 @@ def new_index(request):
 def index_fastapi(request):
     context = {}
     if request.method == "POST":
-        response = requests.get('https://b1ad-2804-2488-308b-7cf0-a028-d4be-c1ec-fbc8.sa.ngrok.io/evaluation/'+request.POST["github_user"])
+        response = requests.get('http://127.0.0.1:5000/evaluation/'+request.POST["github_user"])
         new_eval = new_evaluation(response.json())
         return redirect("evaluation", uuid=new_eval.uuid)
     return render(request, "index.html", context)
@@ -166,9 +170,9 @@ def group_index_fastapi(request):
                 return redirect("group-homepage")
             if "erro" in request.session:
                 del request.session["erro"]
-            response = requests.get('https://b1ad-2804-2488-308b-7cf0-a028-d4be-c1ec-fbc8.sa.ngrok.io'+request_string)
+            response = requests.get('http://127.0.0.1:5000/group-evaluation'+request_string)
             if response.status_code == 200:
-                new_group_evaluation(response.json(), csv_object)
+                new_group_evaluation(list(response.json()), csv_object)
                 return redirect("group-evaluation", uuid=csv_object.uuid)
             else:
                 request.session[

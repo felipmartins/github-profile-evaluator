@@ -137,6 +137,8 @@ Group Evaluation
 <div class="container text-center py-3">
     <a href="{% url 'download-evaluation' group group_evaluation.0.csv_file.uuid %}" class="btn btn-primary"
         role="button">Download PDF</a>
+    <a href="{% url 'download-csv' group group_evaluation.0.csv_file.uuid %}" class="btn btn-primary"
+        role="button">Download CSV</a>
     <a href="{% url 'homepage' %}" class="btn btn-secondary" role="button">Voltar</a>
 </div>
 {% endblock %}
