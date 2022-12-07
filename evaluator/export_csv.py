@@ -49,7 +49,7 @@ def export_group_csv(uuid: str):
     filename = csv_object.file.path.split("/")[-1]
     evaluations = GroupEvaluation.objects.all().filter(csv_file=csv_object)
 
-    with open(filename, mode="w") as file:
+    with open('media/'+ filename, mode="w") as file:
         file.write(
             "github_username,has_profile_readme,has_photo,has_email,has_linkedin,number_of_stacks,number_of_repositories,number_of_pinned_repositories,has_five_stacks,has_ten_stacks,has_five_repos,has_ten_repos,has_two_pinned,has_four_pinned,grade\n"
         )
@@ -60,4 +60,4 @@ def export_group_csv(uuid: str):
             )
 
     
-    return FileResponse(open(filename, 'rb'), as_attachment=True, filename=filename)
+    return FileResponse(open('media/'+ filename, 'rb'), as_attachment=True, filename=filename)
