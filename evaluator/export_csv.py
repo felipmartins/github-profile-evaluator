@@ -60,4 +60,4 @@ def export_group_csv(uuid: str):
             )
 
     
-    return FileResponse(open('media/'+ filename, 'rb'), as_attachment=True, filename=filename)
+    return FileResponse(open('media/'+ filename, 'rb'), as_attachment=True, filename='avaliacao_'+filename)
