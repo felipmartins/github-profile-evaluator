@@ -1,4 +1,4 @@
-# Classifica o perfil de github das pessoas estudantes de acordo com alguns critérios
+# Projeto que classifica o perfil de github das pessoas estudantes de acordo com alguns critérios
 
 Essa aplicação pode ser encontrada no seguinte endereço: [Avaliador Git](https://avaliadorgit.com)
 
