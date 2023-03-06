@@ -2,7 +2,7 @@
 
 Essa aplicação pode ser encontrada no seguinte endereço: [Avaliador Git](https://avaliadorgit.com)
 
-## Pré-Requisitos
+## Os Pré-Requisitos
 
 Para rodar localmente esse projeto em sua máquina será necessário ter uma instalação do `Python 3` compatível com o projeto e, além disso, fazer algumas configurações antes mesmo de conseguir executá-lo localmente. (Como nem todas as versões foram testadas, podem haver problemas de compatibilidade.)
 
