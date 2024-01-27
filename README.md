@@ -1,6 +1,4 @@
-# Classifica o perfil de github das pessoas estudantes de acordo com alguns critérios
-
-Essa aplicação pode ser encontrada no seguinte endereço: [Avaliador Git](https://avaliadorgit.com)
+# Classifica o perfil de github de pessoas seguindo alguns critérios
 
 ## Pré-Requisitos
 
@@ -61,23 +59,23 @@ python3 manage.py runserver
 
 #### Route param:
 ```bash
-https://avaliadorgit.com/grade/
+https://localhost:8000/grade/
 ```
 - Retorna um `json` com o atributo `median_grade` que representa a **mediana** das notas avaliadas pela ferramenta.
 
 #### Query param:
 ```bash
-https://avaliadorgit.com/?refresh=true/
+https://localhost:8000/?refresh=true/
 ```
 - Irá recalcular a mediana das notas avaliadas pela ferramenta.
 
 ```bash
-https://avaliadorgit.com/?github_user=<username>
+https://localhost:8000/?github_user=<username>
 ```
 - Retornará um `json` com o atributo `grade` que representa a nota mais recente do `github_user` (3 dias), caso não encontre irá refazer a avaliação.
 
 ```bash
-https://avaliadorgit.com/?github_user=<username>?refresh=true
+https://localhost:8000/?github_user=<username>?refresh=true
 ```
 - Irá forçar o avaliador a refazer a avaliçaõ do `github_user` passado e retornará um `json` com o atributo `grade` que representa a nota do `github_user`.
 
@@ -95,13 +93,3 @@ https://avaliadorgit.com/?github_user=<username>?refresh=true
 - Possui pelo menos 10 repositórios no GitHub (+10)
 - Possui pelo menos 2 repositórios pinados no GitHub (+10)
 - Possui pelo menos 4 repositórios pinados no GitHub (+10)
-
-
-## Sugestões de melhoria
-
-Sinta-se à vontade para me contactar para que possamos melhorar ainda mais essa ferramenta.
-
-> Começe criando um `fork` deste repositório, crie uma branch para sua feature e suba um pull request. 💚
-
-
-![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)
